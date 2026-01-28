@@ -7,17 +7,19 @@ const Work = () => {
   const featuredProjects = [
     {
       title: "SECOND SKIN",
-      description: "Computer vision–driven fashion projection that transforms the human body into a living canvas.",
+      description: "A projection-mapping system that uses computer vision to turn body movement into responsive digital art.",
       category: "COMPUTER VISION x FASHION TECH",
       link: "/work/projection-mapping",
-      featured: true
+      featured: true,
+      thumbnail: "/secondSkinthumbnail.jpeg"
     },
     {
       title: "VOICEIQ",
-      description: "A conversational AI agent that leverages natural language understanding and voice analysis to assist users in task management.",
+      description: "An AI agent that handles complex IT support through voice conversation.",
       category: "AI / ML",
       link: "/work/voiceiq",
-      featured: true
+      featured: true,
+      thumbnail: "/voiceIQthumbnail.jpg"
     }
   ];
 
@@ -50,7 +52,7 @@ const Work = () => {
         <div className="container mx-auto px-4 md:px-8">
           {/* Header */}
           <motion.header
-            className="mb-12 md:mb-16"
+            className="mb-8 md:mb-10"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
@@ -64,7 +66,7 @@ const Work = () => {
           </motion.header>
 
           {/* Featured Projects */}
-          <section className="mb-16 md:mb-20">
+          <section className="mb-12 md:mb-14">
             <h2 className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-5">
               // FEATURED
             </h2>
