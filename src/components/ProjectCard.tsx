@@ -65,24 +65,6 @@ const ProjectCard = ({ title, description, category, link, featured = false, thu
             >
               {category}
             </motion.span>
-
-            {/* Hover overlay */}
-            <motion.div
-              className="absolute inset-0 bg-accent/10 flex items-center justify-center"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: isHovered ? 1 : 0 }}
-            >
-              <motion.span
-                className="font-display text-2xl md:text-3xl"
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{
-                  scale: isHovered ? 1 : 0.8,
-                  opacity: isHovered ? 1 : 0
-                }}
-              >
-                VIEW →
-              </motion.span>
-            </motion.div>
           </div>
         )}
 
