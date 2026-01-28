@@ -60,10 +60,9 @@ const projectData: Record<string, {
       "Partnered with accessibility advocacy groups"
     ],
     tech: ["Python", "FastAPI", "React", "WebRTC", "OpenAI API", "Redis"],
-    figmaEmbed: "https://embed.figma.com/deck/1t1P9KqAj4X7WGpZHU0PYR/NavyaBatra--Selected-Projects?node-id=0-1&embed-host=share",
     hero: {
-      type: "image",
-      src: "/projects/voiceiq/hero.jpg"
+      type: "video",
+      src: "/waveform.mp4"
     },
     gallery: [
       { type: "image", src: "/projects/voiceiq/gallery/01.jpg" }
@@ -138,7 +137,7 @@ const ProjectDetail = () => {
     <div className="min-h-screen bg-background">
       <Navigation />
       
-      <main className="pt-24 md:pt-32 pb-16">
+      <main className="pt-20 md:pt-24 pb-16">
         <div className="container mx-auto px-4 md:px-8">
           {/* Back link */}
           <Link to="/work">
@@ -151,8 +150,8 @@ const ProjectDetail = () => {
           </Link>
 
           {/* Header */}
-          <motion.header 
-            className="mb-12"
+          <motion.header
+            className="mb-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
@@ -189,7 +188,7 @@ const ProjectDetail = () => {
             </motion.div>
           ) : (
             <motion.div
-              className="border-brutal bg-secondary mb-12 relative overflow-hidden"
+              className="bg-secondary mb-12 relative overflow-hidden"
               style={{ height: project.figmaEmbed ? '600px' : undefined }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

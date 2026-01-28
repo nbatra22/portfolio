@@ -8,9 +8,10 @@ interface ProjectCardProps {
   category: string;
   link: string;
   featured?: boolean;
+  thumbnail?: string;
 }
 
-const ProjectCard = ({ title, description, category, link, featured = false }: ProjectCardProps) => {
+const ProjectCard = ({ title, description, category, link, featured = false, thumbnail }: ProjectCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const isExternalLink = link.startsWith('http://') || link.startsWith('https://');
 
@@ -33,22 +34,30 @@ const ProjectCard = ({ title, description, category, link, featured = false }: P
         {/* Preview area - only for featured projects */}
         {featured && (
           <div className="relative bg-secondary h-48 md:h-60">
-            {/* Placeholder pattern */}
-            <div className="absolute inset-0 opacity-20">
-              <div className="absolute inset-0" style={{
-                backgroundImage: `repeating-linear-gradient(
-                  45deg,
-                  transparent,
-                  transparent 10px,
-                  hsl(var(--muted-foreground) / 0.1) 10px,
-                  hsl(var(--muted-foreground) / 0.1) 20px
-                )`
-              }} />
-            </div>
+            {/* Thumbnail image or placeholder pattern */}
+            {thumbnail ? (
+              <img
+                src={thumbnail}
+                alt={title}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            ) : (
+              <div className="absolute inset-0 opacity-20">
+                <div className="absolute inset-0" style={{
+                  backgroundImage: `repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 10px,
+                    hsl(var(--muted-foreground) / 0.1) 10px,
+                    hsl(var(--muted-foreground) / 0.1) 20px
+                  )`
+                }} />
+              </div>
+            )}
 
             {/* Category tag */}
             <motion.span
-              className="absolute top-3 left-3 font-mono text-xs uppercase tracking-widest bg-background px-2 py-1 border-brutal"
+              className="absolute top-3 left-3 font-mono text-xs uppercase tracking-widest bg-background px-2 py-1 border-brutal z-10"
               animate={{
                 backgroundColor: isHovered ? "hsl(var(--accent))" : "hsl(var(--background))",
                 color: isHovered ? "hsl(var(--background))" : "hsl(var(--foreground))"
