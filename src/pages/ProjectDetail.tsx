@@ -8,8 +8,12 @@ const projectData: Record<string, {
   category: string;
   year: string;
   description: string;
-  details: string[];
+  details?: string[];
   tech: string[];
+  article?: Array<{
+    header: string;
+    content: string;
+  }>;
 
   // NEW (optional)
   hero?: {
@@ -29,11 +33,20 @@ const projectData: Record<string, {
     category: "COMPUTER VISION x FASHION TECH",
     year: "2025",
     description:
-      "Computer vision–driven fashion projection that transforms the human body into a living canvas.",
-    details: [
-      "Real-time body and pose tracking to align projections with the subject's form",
-      "Generative animations mapped dynamically using computer vision coordinates",
-      "Custom workflows for responsive, movement-driven content"
+      "A projection-mapping system that uses computer vision to turn body movement into responsive digital art.",
+    article: [
+      {
+        header: "Origin",
+        content: "The inspiration for this project came from a moment of friction at a fashion tech event. In LA, this event marketed itself as the intersection of fashion and technology by integrating augmented reality throughout the show. By the halfway mark, the entire audience had abandoned their VR headsets and feedback was largely negative. The technology felt like a barrier rather than an enhancement.\n\nI decided I wanted to try integrating technology, animation, and graphics using my computer science background and my interest in fashion and design.\n\nI wanted to explore counterfunctional design as a concept— using unconventional \"bad design\" in order to enhance the feeling of technology and give a glitch, futuristic vibe."
+      },
+      {
+        header: "The Technical Evolution",
+        content: "Second Skin is a projection-mapping system that utilizes computer vision to turn real-time body tracking into responsive visuals.\n\nPhase 1: The Skeleton: I used MediaPipe and OpenCV in Python to extract a bare-bone live-feed skeleton of the user.\n\nPhase 2: Animation & Logic: To gain more artistic control, I integrated TouchDesigner. This allowed me to experiment with \"cyber-glitch core\" aesthetics that respond fluidly to the MediaPipe coordinates.\n\nPhase 3: The Backdrop: After encountering depth-perception roadblocks when trying to project onto a moving body, I pivoted to a high-contrast, projection system backdrop. This \"technical minimalism\" ensured the animations blended neatly with the performer's silhouette."
+      },
+      {
+        header: "Future Outlook: DensePose and CUDA",
+        content: "My journey with Second Skin has actually just started. I am currently working toward my long-term goal of projecting directly onto the body itself. By enabling CUDA on the Jetson Nano and combining DensePose with TouchDesigner, I aim to achieve the depth perception necessary for projecting animations on top of the moving body"
+      }
     ],
     tech: ["Python", "Computer Vision", "OpenCV", "Media Pipe"],
     hero: {
@@ -52,12 +65,20 @@ const projectData: Record<string, {
     category: "AI / ML",
     year: "2025",
     description:
-      "A conversational AI agent that leverages natural language understanding and voice analysis to assist users in task management.",
-    details: [
-      "Speech emotion recognition with 94% accuracy",
-      "Real-time processing under 100ms latency",
-      "Privacy-first architecture with on-device processing",
-      "Partnered with accessibility advocacy groups"
+      "An AI agent that handles complex IT support through voice conversation.",
+    article: [
+      {
+        header: "Origin",
+        content: "My journey into AI began with a simple experiment: I built a chatbot for the homepage of my personal portfolio. During that project, I learned the \"behind the scenes\" of how AI reads information and uses it to answer specific questions—a process known as Retrieval Augmented Generation (RAG)."
+      },
+      {
+        header: "The Challenge: Chat vs. Voice",
+        content: "When I started working as a Software Engineer at Rezolve, I moved from building text bots to building a voice system called VoiceIQ. I quickly realized that talking to an AI is much harder than typing to one.\n\nIn a chat, a user is more forgiving if the AI takes a second to think, and they can always scroll back up to re-read a message. But in a phone call, silence feels like a mistake. If the AI pauses for too long, the person on the other end gets frustrated.\n\nTo fix this, I focused on:\n\nSpeed: I used tools like Redis to \"cache\" or store data temporarily so the AI could respond instantly without a lag.\n\nPersonality: I used what I learned from my portfolio bot to make sure the voice agent felt human and stayed on track, rather than sounding like a rigid robot."
+      },
+      {
+        header: "Growing the System",
+        content: "Right now, I am turning VoiceIQ into a tool that can handle thousands of real-world calls at once. To make sure it works perfectly every time, I've been:\n\nSmart Error Checking: Making sure the AI can catch mistakes in real-time and fix them before the user notices\n\nHandling Multiple Jobs: Teaching the system to work for four different types of tasks simultaneously, like opening a support ticket or answering a basic question\n\nPreventing \"Hallucinations\": I designed a way to combine different system prompts for the AI so it doesn't get confused or start making things up\n\nUser-Friendly Controls: Building a simple dashboard so that even someone who isn't a coder can set up the AI for their own needs"
+      }
     ],
     tech: ["Python", "FastAPI", "React", "WebRTC", "OpenAI API", "Redis"],
     hero: {
@@ -237,7 +258,7 @@ const ProjectDetail = () => {
           {/* Content grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
             {/* Description */}
-            <motion.div 
+            <motion.div
               className="md:col-span-2"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -250,17 +271,32 @@ const ProjectDetail = () => {
                 {project.description}
               </p>
 
-              <h2 className="font-mono text-xs uppercase tracking-widest text-muted-foreground mt-8 mb-4">
-                // DETAILS
-              </h2>
-              <ul className="space-y-2">
-                {project.details.map((detail, i) => (
-                  <li key={i} className="font-mono text-sm flex items-start gap-3">
-                    <span className="text-accent">→</span>
-                    {detail}
-                  </li>
-                ))}
-              </ul>
+              {project.article && project.article.map((section, i) => (
+                <div key={i}>
+                  <h2 className="font-mono text-xs uppercase tracking-widest text-muted-foreground mt-8 mb-4">
+                    // {section.header.toUpperCase()}
+                  </h2>
+                  <p className="font-mono text-sm md:text-base leading-relaxed whitespace-pre-line">
+                    {section.content}
+                  </p>
+                </div>
+              ))}
+
+              {project.details && (
+                <>
+                  <h2 className="font-mono text-xs uppercase tracking-widest text-muted-foreground mt-8 mb-4">
+                    // DETAILS
+                  </h2>
+                  <ul className="space-y-2">
+                    {project.details.map((detail, i) => (
+                      <li key={i} className="font-mono text-sm flex items-start gap-3">
+                        <span className="text-accent">→</span>
+                        {detail}
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
             </motion.div>
 
             {/* Tech stack */}
