@@ -85,20 +85,24 @@ const Index = () => {
               © 2024 NAVYA BATRA — ALL RIGHTS RESERVED
             </p>
             <div className="flex gap-6">
-              <a 
-                href="#" 
+              <a
+                href="https://www.linkedin.com/in/navya-batra/"
                 className="font-mono text-xs text-muted-foreground hover:text-accent transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 LINKEDIN
               </a>
-              <a 
-                href="#" 
+              <a
+                href="https://github.com/nbatra22"
                 className="font-mono text-xs text-muted-foreground hover:text-accent transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 GITHUB
               </a>
-              <a 
-                href="#" 
+              <a
+                href="mailto:navya.batra@gmail.com"
                 className="font-mono text-xs text-muted-foreground hover:text-accent transition-colors"
               >
                 EMAIL
