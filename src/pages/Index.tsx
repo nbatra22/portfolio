@@ -48,8 +48,8 @@ const Index = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
               >
-                Creative technologist crafting at the intersection of computation, 
-                design, and human experience.
+                Creative technologist crafting at the intersection of computation and 
+                design.
               </motion.p>
             </div>
           </motion.header>
