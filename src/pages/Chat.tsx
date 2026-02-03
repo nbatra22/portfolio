@@ -104,7 +104,7 @@ const Chat = () => {
             animate={{ opacity: 1 }}
           >
             <GlitchText
-              text="COFFEE CHAT"
+              text="CHAT WITH AI"
               className="text-4xl md:text-6xl"
             />
             <p className="font-mono text-muted-foreground mt-3 text-sm">

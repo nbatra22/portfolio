@@ -7,7 +7,7 @@ import GlitchText from "@/components/GlitchText";
 const Index = () => {
   const portals = [
     {
-      title: "COFFEE CHAT",
+      title: "CHAT WITH AI",
       subtitle: "Talk to my AI. Ask anything about my work, process, or just say hi.",
       link: "/chat"
     },
