@@ -9,6 +9,7 @@ import Work from "./pages/Work";
 import Vault from "./pages/Vault";
 import Chat from "./pages/Chat";
 import ProjectDetail from "./pages/ProjectDetail";
+import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/about" element={<About />} />
             <Route path="/work" element={<Work />} />
             <Route path="/work/:slug" element={<ProjectDetail />} />
             <Route path="/vault" element={<Vault />} />

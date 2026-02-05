@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import HeroPortal from "@/components/HeroPortal";
 import Marquee from "@/components/Marquee";
@@ -31,24 +32,26 @@ const Index = () => {
       <main className="pt-24 md:pt-32 pb-12">
         <div className="container mx-auto px-4 md:px-8">
           {/* Header */}
-          <motion.header 
+          <motion.header
             className="mb-16 md:mb-24"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
           >
             <div className="max-w-4xl">
-              <GlitchText 
-                text="NAVYA BATRA" 
-                className="text-6xl md:text-8xl lg:text-[10rem] leading-none"
-              />
-              <motion.p 
+              <Link to="/about" className="inline-block cursor-pointer">
+                <GlitchText
+                  text="NAVYA BATRA"
+                  className="text-6xl md:text-8xl lg:text-[10rem] leading-none"
+                />
+              </Link>
+              <motion.p
                 className="font-mono text-muted-foreground mt-6 max-w-lg text-sm md:text-base"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
               >
-                Creative technologist crafting at the intersection of computation and 
+                Creative technologist crafting at the intersection of computation and
                 design.
               </motion.p>
             </div>
