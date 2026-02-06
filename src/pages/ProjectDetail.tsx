@@ -7,7 +7,7 @@ const projectData: Record<string, {
   title: string;
   category: string;
   year: string;
-  description: string;
+  description?: string;
   details?: string[];
   tech: string[];
   article?: Array<{
@@ -32,8 +32,6 @@ const projectData: Record<string, {
     title: "SECOND SKIN",
     category: "COMPUTER VISION x FASHION TECH",
     year: "2025",
-    description:
-      "A projection-mapping system that uses computer vision to turn body movement into  digital art.",
     article: [
       {
         header: "What Was Built",
@@ -68,8 +66,6 @@ const projectData: Record<string, {
     title: "VOICEIQ",
     category: "AI / ML",
     year: "2025",
-    description:
-      "An industry deployed AI agent that handles complex IT support through voice conversation.",
     article: [
       {
         header: "What Was Built",
@@ -81,7 +77,7 @@ const projectData: Record<string, {
       },
       {
         header: "Process",
-        content: "Phase 1: Error Handling: To prevent abrupt call terminations when ticket creation failed, I implemented a transfer functionality and graceful recovery logic to ensure a seamless user experience even during technical friction. \n\nPhase 2: Multi-Tenant Architecture: The platform initially supported only one client with hardcoded API configurations. To enable multi-tenancy, I integrated a PostgreSQL database to store API URLs and schema structures dynamically. By replacing hardcoded logic with database fetches, I made the system entirely dynamic, allowing ticket creation across multiple different tenants and API endpoints. \n\nPhase 3: Multi-Template & Hallucination Prevention: Handling different ticketing platforms meant managing varying required fields and inconsistent schemas. The AI was hallucinating because it was overwhelmed by massive, irrelevant API data. I solved this by adding an intermediate layer that simplified API responses to only the relevant JSON fields with self-added requirement tags. I then moved schema creation to a separate OpenAI API call—decoupling it from the Realtime API—to minimize the data load and drastically improve accuracy. \n\nPhase 4: Modular Codebase: I restructured the codebase into use-case-specific directories, moving away from a monolithic main.py to a modular, production-standard architecture."
+        content: "Phase 1: Error Handling: To prevent abrupt call terminations when ticket creation failed, I implemented a transfer functionality and graceful recovery logic to ensure a seamless user experience even during technical friction. \n\nPhase 2: Multi-Tenant Architecture: The platform initially supported only one client with hardcoded API configurations. To enable multi-tenancy, I integrated a PostgreSQL database to store API URLs and schema structures dynamically. By replacing hardcoded logic with database fetches, I made the system entirely dynamic, allowing ticket creation across multiple different tenants and API endpoints. \n\nPhase 3: Multi-Template: Handling different ticketing platforms meant managing varying required fields and inconsistent payload schemas. During this schema creation step, our AI was hallucinating because it was overwhelmed by massive, irrelevant API data. I solved this by adding an intermediate layer that simplified API responses to only the relevant JSON fields with self-added requirement tags. I then moved schema creation to a separate OpenAI API call—decoupling it from the Realtime API—to minimize the data load and drastically improve accuracy. \n\nPhase 4: Modular Codebase: I restructured the codebase into use-case-specific directories, moving away from a monolithic main.py to a modular, production-standard architecture."
       },
             {
         header: "Future Steps",
