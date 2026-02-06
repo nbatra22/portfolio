@@ -33,19 +33,23 @@ const projectData: Record<string, {
     category: "COMPUTER VISION x FASHION TECH",
     year: "2025",
     description:
-      "A projection-mapping system that uses computer vision to turn body movement into responsive digital art.",
+      "A projection-mapping system that uses computer vision to turn body movement into  digital art.",
     article: [
       {
-        header: "Origin",
-        content: "The inspiration for this project came from a moment of friction at a fashion tech event. In LA, this event marketed itself as the intersection of fashion and technology by integrating augmented reality throughout the show. By the halfway mark, the entire audience had abandoned their VR headsets and feedback was largely negative. The technology felt like a barrier rather than an enhancement.\n\nI decided I wanted to try integrating technology, animation, and graphics using my computer science background and my interest in fashion and design.\n\nI wanted to explore counterfunctional design as a concept— using unconventional \"bad design\" in order to enhance the feeling of technology and give a glitch, futuristic vibe."
+        header: "What Was Built",
+        content: "Second Skin is a projection-mapping system that utilizes computer vision to turn real-time body tracking into responsive visuals. It uses live camera feed to extract the user's skeleton and then projects dynamic animations that respond to their movements. The goal was to create an immersive experience where technology enhances a performer's presence."
       },
       {
-        header: "The Technical Evolution",
-        content: "Second Skin is a projection-mapping system that utilizes computer vision to turn real-time body tracking into responsive visuals.\n\nPhase 1: The Skeleton: I used MediaPipe and OpenCV in Python to extract a bare-bone live-feed skeleton of the user.\n\nPhase 2: Animation & Logic: To gain more artistic control, I integrated TouchDesigner. This allowed me to experiment with \"cyber-glitch core\" aesthetics that respond fluidly to the MediaPipe coordinates.\n\nPhase 3: The Backdrop: After encountering depth-perception roadblocks when trying to project onto a moving body, I pivoted to a high-contrast, projection system backdrop. This \"technical minimalism\" ensured the animations blended neatly with the performer's silhouette."
+        header: "Background",
+        content: "The inspiration for this project came from a moment of friction at a fashion tech event. This event marketed itself as the intersection of fashion and technology and integrated augmented reality throughout the show. By the halfway mark, the entire audience had abandoned their VR headsets and post show feedback was largely negative. The technology was said to not integrate well with the show, and headsets were uncomfortable for long periods of time. \n\nI decided I wanted to try integrating technology, animation, and graphics using my computer science background and my interest in fashion and design."
+      },
+            {
+        header: "Process",
+        content: "Phase 1: The Skeleton: I used MediaPipe and OpenCV in Python to extract a bare-bone live-feed skeleton of the user. I tried using DensePose first to extract a 3D render, but my hardware didn't support 3D mapping software. \n\nPhase 2: Animation & Logic: To gain more artistic control, I integrated TouchDesigner. This allowed me to experiment with \"cyber-glitch core\" aesthetics that respond fluidly to the MediaPipe coordinates. It also gave me more freedom to explore counterfunctional design as a concept. I could delibertly use unconventional graphics and styles in order to enhance the feeling of technology and give a glitch, futuristic vibe.\n\nPhase 3: The Backdrop: After encountering depth-perception roadblocks when trying to project onto a moving body, I pivoted to a high-contrast, projection system backdrop. This gave a more \"technical minimalism\" feel to the project. I think this issue is related to not having a 3D render of the model and space."
       },
       {
-        header: "Future Outlook: DensePose and CUDA",
-        content: "My journey with Second Skin has actually just started. I am currently working toward my long-term goal of projecting directly onto the body itself. By enabling CUDA on the Jetson Nano and combining DensePose with TouchDesigner, I aim to achieve the depth perception necessary for projecting animations on top of the moving body"
+        header: "Future Steps",
+        content: "Knowing this roadblock, I feel my journey with Second Skin has actually just started. I am currently working toward my long-term goal of projecting directly onto the body itself. By enabling CUDA on the Jetson Nano and combining DensePose with TouchDesigner, I aim to achieve the depth perception necessary for projecting animations on top of the moving body"
       }
     ],
     tech: ["Python", "Computer Vision", "OpenCV", "Media Pipe"],
@@ -65,22 +69,26 @@ const projectData: Record<string, {
     category: "AI / ML",
     year: "2025",
     description:
-      "An AI agent that handles complex IT support through voice conversation.",
+      "An industry deployed AI agent that handles complex IT support through voice conversation.",
     article: [
       {
-        header: "Origin",
-        content: "My journey into AI began with a simple experiment: I built a chatbot for the homepage of my personal portfolio. During that project, I learned the \"behind the scenes\" of how AI reads information and uses it to answer specific questions—a process known as Retrieval Augmented Generation (RAG)."
+        header: "What Was Built",
+        content: "VoiceIQ is a production-grade AI voice assistant designed to handle large-scale IT support workflows. It utilizes an empathetic voice interface to classify user intent, manage support tickets, and resolve issues in real-time. The system was developed as an additional tool for RezolveAI, an AI startup focused on providing Agentic IT Support for our clients."
       },
       {
-        header: "The Challenge: Chat vs. Voice",
-        content: "When I started working as a Software Engineer at Rezolve, I moved from building text bots to building a voice system called VoiceIQ. I quickly realized that talking to an AI is much harder than typing to one.\n\nIn a chat, a user is more forgiving if the AI takes a second to think, and they can always scroll back up to re-read a message. But in a phone call, silence feels like a mistake. If the AI pauses for too long, the person on the other end gets frustrated.\n\nTo fix this, I focused on:\n\nSpeed: I used tools like Redis to \"cache\" or store data temporarily so the AI could respond instantly without a lag.\n\nPersonality: I used what I learned from my portfolio bot to make sure the voice agent felt human and stayed on track, rather than sounding like a rigid robot."
+        header: "Background",
+        content: "I was brought onto the team to support the transition of VoiceIQ from a  a single-flow prototype to a production-ready platform. The primary challenge was moving beyond a 'happy path' demo to a system that could withstand the unpredictability of real-world callers, high volume, and varied client needs and ticketing platforms. I worked alongside a team of 3 to turn VoiceIQ from a proof-of-concept to a scalable industry tool."
       },
       {
-        header: "Growing the System",
-        content: "Right now, I am turning VoiceIQ into a tool that can handle thousands of real-world calls at once. To make sure it works perfectly every time, I've been:\n\nSmart Error Checking: Making sure the AI can catch mistakes in real-time and fix them before the user notices\n\nHandling Multiple Jobs: Teaching the system to work for four different types of tasks simultaneously, like opening a support ticket or answering a basic question\n\nPreventing \"Hallucinations\": I designed a way to combine different system prompts for the AI so it doesn't get confused or start making things up\n\nUser-Friendly Controls: Building a simple dashboard so that even someone who isn't a coder can set up the AI for their own needs"
+        header: "Process",
+        content: "Phase 1: Error Handling: To prevent abrupt call terminations when ticket creation failed, I implemented a transfer functionality and graceful recovery logic to ensure a seamless user experience even during technical friction. \n\nPhase 2: Multi-Tenant Architecture: The platform initially supported only one client with hardcoded API configurations. To enable multi-tenancy, I integrated a PostgreSQL database to store API URLs and schema structures dynamically. By replacing hardcoded logic with database fetches, I made the system entirely dynamic, allowing ticket creation across multiple different tenants and API endpoints. \n\nPhase 3: Multi-Template & Hallucination Prevention: Handling different ticketing platforms meant managing varying required fields and inconsistent schemas. The AI was hallucinating because it was overwhelmed by massive, irrelevant API data. I solved this by adding an intermediate layer that simplified API responses to only the relevant JSON fields with self-added requirement tags. I then moved schema creation to a separate OpenAI API call—decoupling it from the Realtime API—to minimize the data load and drastically improve accuracy. \n\nPhase 4: Modular Codebase: I restructured the codebase into use-case-specific directories, moving away from a monolithic main.py to a modular, production-standard architecture."
+      },
+            {
+        header: "Future Steps",
+        content: "The next phase is the development of a client configuration dashboard. This will allow clients to select specific use cases and prompting styles for their voice agent. The system will then dynamically concatenate these selections into a single initial system prompt for the Realtime API. This strategy limits prompt size in real-time, further reducing latency and preventing hallucinations during live interactions."
       }
     ],
-    tech: ["Python", "FastAPI", "React", "WebRTC", "OpenAI API", "Redis"],
+    tech: ["Python", "FastAPI", "React", "WebRTC", "OpenAI API", "Redis", "RealTime API"],
     hero: {
       type: "video",
       src: "/waveform.mp4"
