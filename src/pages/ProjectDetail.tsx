@@ -79,7 +79,7 @@ const projectData: Record<string, {
         header: "Process",
         content: "Phase 1: Error Handling: To prevent abrupt call terminations when ticket creation failed, I implemented a transfer functionality and graceful recovery logic to ensure a seamless user experience even during technical friction. \n\nPhase 2: Multi-Tenant Architecture: The platform initially supported only one client with hardcoded API configurations. To enable multi-tenancy, I integrated a PostgreSQL database to store API URLs and schema structures dynamically. By replacing hardcoded logic with database fetches, I made the system entirely dynamic, allowing ticket creation across multiple different tenants and API endpoints. \n\nPhase 3: Multi-Template: Handling different ticketing platforms meant managing varying required fields and inconsistent payload schemas. During this schema creation step, our AI was hallucinating because it was overwhelmed by massive, irrelevant API data. I solved this by adding an intermediate layer that simplified API responses to only the relevant JSON fields with self-added requirement tags. I then moved schema creation to a separate OpenAI API call—decoupling it from the Realtime API—to minimize the data load and drastically improve accuracy. \n\nPhase 4: Modular Codebase: I restructured the codebase into use-case-specific directories, moving away from a monolithic main.py to a modular, production-standard architecture."
       },
-            {
+      {
         header: "Future Steps",
         content: "The next phase is the development of a client configuration dashboard. This will allow clients to select specific use cases and prompting styles for their voice agent. The system will then dynamically concatenate these selections into a single initial system prompt for the Realtime API. This strategy limits prompt size in real-time, further reducing latency and preventing hallucinations during live interactions."
       }
@@ -268,9 +268,6 @@ const ProjectDetail = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             >
-              <h2 className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-4">
-                // OVERVIEW
-              </h2>
               <p className="font-mono text-sm md:text-base leading-relaxed">
                 {project.description}
               </p>
