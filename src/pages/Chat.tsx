@@ -25,7 +25,7 @@ const Chat = () => {
 
   const [messages, setMessages] = useState<Message[]>(() => {
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
+      const stored = sessionStorage.getItem(STORAGE_KEY);
       return stored ? JSON.parse(stored) : defaultMessages;
     } catch {
       return defaultMessages;
@@ -35,7 +35,7 @@ const Chat = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
   }, [messages]);
 
   useEffect(() => {
