@@ -25,16 +25,16 @@ const Work = () => {
 
   const otherProjects = [
     {
+      title: "SYNTRILLO",
+      description: "A re-design of a physician facing data dashboard for a health-tech startup.",
+      category: "DATA VIZ",
+      link: "https://www.figma.com/deck/PiXudvsd2WousaS7yn8VeJ/DataDashboard-Redesign?node-id=32-66&t=r1LQYNQg3hHL0zSi-1"
+    },
+    {
       title: "BEEF/BEAR",
       description: "Full Brand and web app design for FX present's show 'The Bear'.",
       category: "UI/UX CASE STUDY",
       link: "https://www.figma.com/deck/btEu80cUWovPRwntgZ792W/Design-Review?node-id=1-511&t=r7lAE9AILnK0wA85-1"
-    },
-    {
-      title: "HURD-CO",
-      description: "Blockchain powered visualization to track carbon emissions of company.",
-      category: "DATA VIZ",
-      link: "https://www.figma.com/deck/9bOQ3p4Xg5oL0Hl5uDVNtp/BlockChain?node-id=1-552&t=alHpm39qIqLmPI0k-1"
     },
     {
       title: "ECOSCAN",
