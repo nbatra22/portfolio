@@ -9,17 +9,16 @@ interface ProjectCardProps {
   link: string;
   featured?: boolean;
   thumbnail?: string;
+  video?: string;
 }
 
-const ProjectCard = ({ title, description, category, link, featured = false, thumbnail }: ProjectCardProps) => {
+const ProjectCard = ({ title, description, category, link, featured = false, thumbnail, video }: ProjectCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const isExternalLink = link.startsWith('http://') || link.startsWith('https://');
 
   const cardContent = (
     <motion.article
-      className={`relative border-brutal bg-card overflow-hidden cursor-pointer ${
-        featured ? "md:col-span-2 md:row-span-2" : ""
-      }`}
+      className="relative border-brutal bg-card overflow-hidden cursor-pointer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       whileHover={{
@@ -33,9 +32,17 @@ const ProjectCard = ({ title, description, category, link, featured = false, thu
     >
         {/* Preview area - only for featured projects */}
         {featured && (
-          <div className="relative bg-secondary h-48 md:h-60">
-            {/* Thumbnail image or placeholder pattern */}
-            {thumbnail ? (
+          <div className="relative bg-secondary h-80 md:h-[28rem]">
+            {video ? (
+              <video
+                src={video}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            ) : thumbnail ? (
               <img
                 src={thumbnail}
                 alt={title}

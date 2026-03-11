@@ -1,17 +1,28 @@
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import ProjectCard from "@/components/ProjectCard";
 import GlitchText from "@/components/GlitchText";
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
+import type { CarouselApi } from "@/components/ui/carousel";
 
 const Work = () => {
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    if (!carouselApi) return;
+    carouselApi.on("select", () => setCurrentIndex(carouselApi.selectedScrollSnap()));
+  }, [carouselApi]);
+
   const featuredProjects = [
     {
-      title: "VOICEIQ",
-      description: "An industry level AI agent that handles complex IT support through voice conversation.",
-      category: "AI / ML",
-      link: "/work/voiceiq",
+      title: "CONNEQ",
+      description: "Placeholder description for ConneQ.",
+      category: "PLACEHOLDER",
+      link: "#",
       featured: true,
-      thumbnail: "/voiceIQthumbnail.jpg"
+      thumbnail: "/placeholder.svg"
     },
     {
       title: "SECOND SKIN",
@@ -19,7 +30,15 @@ const Work = () => {
       category: "COMPUTER VISION x FASHION TECH",
       link: "/work/projection-mapping",
       featured: true,
-      thumbnail: "/secondSkinthumbnail.jpeg"
+      video: "/SecondSkin-It1.mov"
+    },
+    {
+      title: "VOICEIQ",
+      description: "An industry level AI agent that handles complex IT support through voice conversation.",
+      category: "AI / ML",
+      link: "/work/voiceiq",
+      featured: true,
+      video: "/waveform.mp4"
     }
   ];
 
@@ -60,21 +79,23 @@ const Work = () => {
               text="WORK"
               className="text-5xl md:text-7xl lg:text-8xl"
             />
-            <p className="font-mono text-muted-foreground mt-4 max-w-lg text-sm">
-              Selected projects spanning AI, creative coding, and immersive experiences.
-            </p>
           </motion.header>
 
           {/* Featured Projects */}
           <section className="mb-12 md:mb-14">
-            <h2 className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-5">
-              // FEATURED
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {featuredProjects.map((project) => (
-                <ProjectCard key={project.title} {...project} />
-              ))}
-            </div>
+            <Carousel opts={{ loop: true, align: "center" }} setApi={setCarouselApi} className="w-full">
+              <CarouselContent>
+                {featuredProjects.map((project, i) => (
+                  <CarouselItem key={project.title} className="basis-[85%] md:basis-[70%]">
+                    <div className={`transition-all duration-300 ${i !== currentIndex ? "blur-sm opacity-40 scale-95" : "scale-100"}`}>
+                      <ProjectCard {...project} />
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="left-2" />
+              <CarouselNext className="right-2" />
+            </Carousel>
           </section>
 
           {/* Other Projects */}
