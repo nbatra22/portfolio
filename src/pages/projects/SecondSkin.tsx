@@ -191,6 +191,19 @@ const SecondSkin = () => {
                   Second Skin is a projection-mapping system that utilizes computer vision to turn real-time body tracking into responsive visuals. It uses live camera feed to extract the user's skeleton and then projects dynamic animations that respond to their movements.
                 </p>
               </div>
+              {/* Tech Stack */}
+              <div>
+                <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+                  Tech Stack:
+                </span>
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {["Python", "Computer Vision", "OpenCV", "MediaPipe", "TouchDesigner"].map((tech) => (
+                    <span key={tech} className="font-mono text-xs border-brutal px-3 py-1 bg-secondary">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
 
             {/* Center thumbnail media */}
@@ -211,29 +224,14 @@ const SecondSkin = () => {
                 // Background
               </h2>
               <div className="border border-foreground/20 p-4">
-                <p className="font-mono text-xs leading-relaxed">
-                  The inspiration came from a fashion tech event where the entire audience abandoned their VR headsets halfway through. The technology didn't integrate with the show. I wanted to explore a different model — one where the tech is invisible.
+              <p className="font-mono text-xs leading-relaxed">
+                The inspiration for this project came from a moment of friction at a fashion tech event. This event marketed itself as the intersection of fashion and technology and integrated augmented reality throughout the show. By the halfway mark, the entire audience had abandoned their VR headsets and post show feedback was largely negative. The technology was said to not integrate well with the show, and headsets were uncomfortable for long periods of time.
+              </p>
+                
+              <p className="font-mono text-xs leading-relaxed mt-3">
+                I decided I wanted to try integrating technology, animation, and graphics using my computer science background and my interest in fashion and design.
                 </p>
               </div>
-            </div>
-          </motion.div>
-
-          {/* Tech Stack */}
-          <motion.div
-            className="mb-8"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-          >
-            <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground mr-4">
-              Tech Stack:
-            </span>
-            <div className="inline-flex flex-wrap gap-2 mt-2">
-              {["Python", "Computer Vision", "OpenCV", "MediaPipe", "TouchDesigner"].map((tech) => (
-                <span key={tech} className="font-mono text-xs border-brutal px-3 py-1 bg-secondary">
-                  {tech}
-                </span>
-              ))}
             </div>
           </motion.div>
 
