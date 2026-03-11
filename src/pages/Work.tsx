@@ -20,6 +20,14 @@ const Work = () => {
       link: "/work/projection-mapping",
       featured: true,
       thumbnail: "/secondSkinthumbnail.jpeg"
+    },
+    {
+      title: "CONNEQ",
+      description: "A wearable system that analyzes biometric data to output a named emotion and frequency of vibration to create a tangible interface for online communication.",
+      category: "AFFECTIVE COMPUTING x HAPTICS",
+      link: "/work/conneq",
+      featured: true,
+      thumbnail: "/ConneQThumnbail.png"
     }
   ];
 

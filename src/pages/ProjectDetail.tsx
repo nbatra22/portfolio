@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import SecondSkin from "./projects/SecondSkin";
 import VoiceIQ from "./projects/VoiceIQ";
+import ConneQ from "./projects/ConneQ";
 
 const NotFound = () => (
   <div className="min-h-screen bg-background">
@@ -21,6 +22,7 @@ const ProjectDetail = () => {
   switch (slug) {
     case "projection-mapping": return <SecondSkin />;
     case "voiceiq":            return <VoiceIQ />;
+    case "conneq":             return <ConneQ />;
     default:                   return <NotFound />;
   }
 };
