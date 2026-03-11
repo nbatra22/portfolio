@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 interface VaultItemProps {
   title: string;
@@ -7,16 +8,20 @@ interface VaultItemProps {
   year: string;
   index: number;
   media?: { type: "image" | "video"; src: string };
+  modalContent?: React.ReactNode;
 }
 
-const VaultItem = ({ title, medium, year, index, media }: VaultItemProps) => {
+const VaultItem = ({ title, medium, year, index, media, modalContent }: VaultItemProps) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
+    <>
     <motion.div
       className="relative aspect-square border-brutal bg-secondary cursor-pointer overflow-hidden group"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={() => setIsOpen(true)}
       initial={{ opacity: 0, scale: 0.9 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
@@ -96,6 +101,29 @@ const VaultItem = ({ title, medium, year, index, media }: VaultItemProps) => {
         />
       )}
     </motion.div>
+
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogContent className="max-w-2xl">
+        <DialogHeader>
+          <DialogTitle className="font-display text-2xl">{title}</DialogTitle>
+          <div className="flex gap-4 font-mono text-xs text-muted-foreground uppercase tracking-wider">
+            <span>{medium}</span>
+            <span>{year}</span>
+          </div>
+        </DialogHeader>
+        {media && (
+          <div className="aspect-video w-full overflow-hidden border-brutal">
+            {media.type === "video" ? (
+              <video src={media.src} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+            ) : (
+              <img src={media.src} alt={title} className="w-full h-full object-cover" />
+            )}
+          </div>
+        )}
+        {modalContent}
+      </DialogContent>
+    </Dialog>
+    </>
   );
 };
 

@@ -87,6 +87,9 @@ const vaultItems = [
                   year={item.year}
                   index={index}
                   media={item.media}
+                  modalContent={
+                    <p className="font-mono text-sm text-muted-foreground">Placeholder</p>
+                  }
                 />
               ))}
             </div>

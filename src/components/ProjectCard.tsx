@@ -9,10 +9,9 @@ interface ProjectCardProps {
   link: string;
   featured?: boolean;
   thumbnail?: string;
-  video?: string;
 }
 
-const ProjectCard = ({ title, description, category, link, featured = false, thumbnail, video }: ProjectCardProps) => {
+const ProjectCard = ({ title, description, category, link, featured = false, thumbnail }: ProjectCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const isExternalLink = link.startsWith('http://') || link.startsWith('https://');
 
@@ -32,17 +31,8 @@ const ProjectCard = ({ title, description, category, link, featured = false, thu
     >
         {/* Preview area - only for featured projects */}
         {featured && (
-          <div className="relative bg-secondary h-80 md:h-[28rem]">
-            {video ? (
-              <video
-                src={video}
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-            ) : thumbnail ? (
+          <div className="relative bg-secondary h-48 md:h-60">
+            {thumbnail ? (
               <img
                 src={thumbnail}
                 alt={title}
