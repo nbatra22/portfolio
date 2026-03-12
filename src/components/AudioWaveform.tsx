@@ -15,6 +15,8 @@ const AudioWaveform = ({ src, className }: AudioWaveformProps) => {
   const bufferRef = useRef<AudioBuffer | null>(null);
   const sourceRef = useRef<AudioBufferSourceNode | null>(null);
   const isPlayingRef = useRef(false);
+  const pauseOffsetRef = useRef(0);   // position in buffer (seconds) to resume from
+  const playStartTimeRef = useRef(0); // audioCtx.currentTime when playback began
   const staticWaveRef = useRef<Float32Array | null>(null);
   const [loaded, setLoaded] = useState(false);
 
@@ -69,13 +71,17 @@ const AudioWaveform = ({ src, className }: AudioWaveformProps) => {
       source.buffer = bufferRef.current;
       source.connect(analyserRef.current);
       source.loop = true;
-      source.start();
+      source.start(0, pauseOffsetRef.current);
+      playStartTimeRef.current = ctx.currentTime;
       sourceRef.current = source;
       isPlayingRef.current = true;
     };
 
     const stop = () => {
-      if (!isPlayingRef.current) return;
+      const ctx = audioCtxRef.current;
+      if (!isPlayingRef.current || !ctx || !bufferRef.current) return;
+      const elapsed = ctx.currentTime - playStartTimeRef.current;
+      pauseOffsetRef.current = (pauseOffsetRef.current + elapsed) % bufferRef.current.duration;
       sourceRef.current?.stop();
       sourceRef.current = null;
       isPlayingRef.current = false;

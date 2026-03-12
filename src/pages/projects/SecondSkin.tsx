@@ -14,6 +14,7 @@ interface Phase {
   text: string;
   media: MediaItem[];
   align: "left" | "right";
+  layout?: "stacked" | "diagonal";
 }
 
 const phases: Phase[] = [
@@ -28,6 +29,7 @@ I decided I wanted to try integrating technology, animation, and graphics using 
       { type: "image", src: "/secondSkin/phase0_pic2.jpg" },
     ],
     align: "left",
+    layout: "stacked",
   },
   {
     number: "02",
@@ -54,6 +56,7 @@ I could deliberately use unconventional graphics and styles in order to enhance 
       { type: "video", src: "/secondSkin/phase4_media1.mov" },
     ],
     align: "right",
+    layout: "diagonal",
   },
   {
     number: "05",
@@ -113,8 +116,37 @@ const PhaseCard = ({ phase, index }: { phase: Phase; index: number }) => {
       {/* Card body */}
       <div className="p-5">
         {hasMedia ? (
-          <div className="space-y-4">
-            {/* First row: media + text */}
+          phase.layout === "stacked" ? (
+            /* Phase 1: image left, text right */
+            <div className="grid gap-5" style={{ gridTemplateColumns: "1fr 2fr" }}>
+              <div className="bg-muted overflow-hidden">
+                <img
+                  src={phase.media[0].src}
+                  alt=""
+                  className="w-full h-auto object-contain"
+                />
+              </div>
+              <p className="font-mono text-xs leading-relaxed whitespace-pre-line">
+                {phase.text}
+              </p>
+            </div>
+          ) : phase.layout === "diagonal" ? (
+            /* Phase 4: img left, right col = text stacked directly above img2 */
+            <div className="grid grid-cols-2 gap-5 items-start">
+              <div className="aspect-[4/3] bg-muted overflow-hidden">
+                {renderMedia(phase.media[0], "media-0")}
+              </div>
+              <div className="flex flex-col gap-3">
+                <p className="font-mono text-xs leading-relaxed whitespace-pre-line">
+                  {phase.text}
+                </p>
+                <div className="aspect-[4/3] bg-muted overflow-hidden">
+                  {renderMedia(phase.media[1], "media-1")}
+                </div>
+              </div>
+            </div>
+          ) : (
+            /* Default: single media on left, text on right */
             <div className="grid grid-cols-2 gap-5">
               <div className="aspect-[4/3] bg-muted overflow-hidden">
                 {renderMedia(phase.media[0], "media-0")}
@@ -123,15 +155,7 @@ const PhaseCard = ({ phase, index }: { phase: Phase; index: number }) => {
                 {phase.text}
               </p>
             </div>
-            {/* Second media if exists */}
-            {phase.media.length > 1 && (
-              <div className="flex justify-end">
-                <div className="aspect-[4/3] w-1/2 bg-muted overflow-hidden">
-                  {renderMedia(phase.media[1], "media-1")}
-                </div>
-              </div>
-            )}
-          </div>
+          )
         ) : (
           <p className="font-mono text-xs leading-relaxed whitespace-pre-line">
             {phase.text}
