@@ -23,7 +23,7 @@ const Work = () => {
     },
     {
       title: "CONNEQ",
-      description: "A wearable system that analyzes biometric data to output a named emotion and frequency of vibration to create a tangible interface for online communication.",
+      description: "A wearable system that analyzes biometric data to output a named emotion and frequency of vibration.",
       category: "AFFECTIVE COMPUTING x HAPTICS",
       link: "/work/conneq",
       featured: true,
