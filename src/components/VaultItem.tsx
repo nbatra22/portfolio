@@ -1,129 +1,85 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 interface VaultItemProps {
+  index: number;
   title: string;
   medium: string;
   year: string;
-  index: number;
   media?: { type: "image" | "video"; src: string };
-  modalContent?: React.ReactNode;
+  text?: string;
 }
 
-const VaultItem = ({ title, medium, year, index, media, modalContent }: VaultItemProps) => {
-  const [isHovered, setIsHovered] = useState(false);
+const VaultItem = ({ index, title, medium, year, media, text }: VaultItemProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <>
-    <motion.div
-      className="relative aspect-square border-brutal bg-secondary cursor-pointer overflow-hidden group"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onClick={() => setIsOpen(true)}
-      initial={{ opacity: 0, scale: 0.9 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.05 }}
-      whileHover={{ scale: 1.02 }}
-    >
-      {/* Media or grid pattern background */}
-      {media ? (
-        media.type === "video" ? (
-          <video
-            className="absolute inset-0 w-full h-full object-cover"
-            src={media.src}
-            autoPlay
-            loop
-            muted
-            playsInline
-          />
-        ) : (
-          <img
-            className="absolute inset-0 w-full h-full object-cover"
-            src={media.src}
-            alt={title}
-          />
-        )
-      ) : (
-        <div className="absolute inset-0 opacity-30" style={{
-          backgroundImage: `
-            linear-gradient(hsl(var(--muted-foreground) / 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, hsl(var(--muted-foreground) / 0.1) 1px, transparent 1px)
-          `,
-          backgroundSize: '20px 20px'
-        }} />
-      )}
+    <div className="border-t border-foreground/20">
+      <button
+        className="w-full flex items-baseline justify-between py-4 gap-6 text-left group"
+        onClick={() => setIsOpen((v) => !v)}
+      >
+        <div className="flex items-baseline gap-5 min-w-0">
+          <span className="font-mono text-xs text-muted-foreground shrink-0">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          <span className="font-mono text-sm md:text-base uppercase tracking-wide truncate group-hover:text-accent transition-colors">
+            {title}
+          </span>
+        </div>
+        <div className="flex items-baseline gap-5 shrink-0">
+          <span className="font-mono text-xs text-muted-foreground hidden sm:block uppercase tracking-widest">
+            {medium}
+          </span>
+          <span className="font-mono text-xs text-muted-foreground">
+            {year}
+          </span>
+          <span className="font-mono text-sm text-muted-foreground group-hover:text-foreground transition-colors">
+            {isOpen ? "−" : "+"}
+          </span>
+        </div>
+      </button>
 
-      {/* Index number */}
-      <span className="absolute top-2 left-2 font-mono text-xs text-muted-foreground">
-        {String(index + 1).padStart(2, '0')}
-      </span>
-
-      {/* Hover caption overlay */}
       <AnimatePresence>
-        {isHovered && (
+        {isOpen && (
           <motion.div
-            className="absolute inset-0 bg-background/95 p-4 flex flex-col justify-end"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            transition={{ duration: 0.2 }}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="overflow-hidden"
           >
-            <h4 className="font-display text-xl md:text-2xl">{title}</h4>
-            <div className="flex justify-between items-end mt-2">
-              <span className="font-mono text-xs text-muted-foreground uppercase tracking-wider">
-                {medium}
-              </span>
-              <span className="font-mono text-xs text-accent">{year}</span>
+            <div className="pb-8 pl-10">
+              {media && (
+                <div className="mb-5 max-w-lg">
+                  {media.type === "video" ? (
+                    <video
+                      className="w-full h-auto"
+                      src={media.src}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                    />
+                  ) : (
+                    <img
+                      src={media.src}
+                      alt={title}
+                      className="w-full h-auto"
+                    />
+                  )}
+                </div>
+              )}
+              {text && (
+                <p className="font-mono text-xs md:text-sm leading-relaxed whitespace-pre-line max-w-2xl text-muted-foreground">
+                  {text}
+                </p>
+              )}
             </div>
-            
-            {/* View indicator */}
-            <motion.div 
-              className="absolute top-4 right-4 w-8 h-8 border-brutal flex items-center justify-center"
-              initial={{ rotate: 0 }}
-              animate={{ rotate: 45 }}
-            >
-              <span className="text-sm">→</span>
-            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Glitch flash */}
-      {isHovered && (
-        <motion.div
-          className="absolute inset-0 bg-accent/20 pointer-events-none"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: [0, 0.3, 0] }}
-          transition={{ duration: 0.15 }}
-        />
-      )}
-    </motion.div>
-
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="max-w-2xl">
-        <DialogHeader>
-          <DialogTitle className="font-display text-2xl">{title}</DialogTitle>
-          <div className="flex gap-4 font-mono text-xs text-muted-foreground uppercase tracking-wider">
-            <span>{medium}</span>
-            <span>{year}</span>
-          </div>
-        </DialogHeader>
-        {media && (
-          <div className="aspect-video w-full overflow-hidden border-brutal">
-            {media.type === "video" ? (
-              <video src={media.src} autoPlay loop muted playsInline className="w-full h-full object-cover" />
-            ) : (
-              <img src={media.src} alt={title} className="w-full h-full object-cover" />
-            )}
-          </div>
-        )}
-        {modalContent}
-      </DialogContent>
-    </Dialog>
-    </>
+    </div>
   );
 };
 
