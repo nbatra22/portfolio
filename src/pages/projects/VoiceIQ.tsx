@@ -69,7 +69,7 @@ const VoiceIQ = () => {
 
             {/* Center: Audio Waveform */}
             <div className="bg-muted overflow-hidden aspect-[3/4] md:aspect-auto">
-              <AudioWaveform src="/voiceIQ/voiceIQFlow2.m4a" className="w-full h-full" />
+              <AudioWaveform src="/voiceIQ/voiceIQFlow2.mp3" className="w-full h-full" />
             </div>
 
             {/* Right: Background */}
