@@ -66,11 +66,13 @@ const ConneQ = () => {
               </div>
             </div>
 
-            {/* Center: Media placeholder */}
+            {/* Center: Media */}
             <div className="bg-muted overflow-hidden aspect-[3/4] md:aspect-auto flex items-center justify-center border border-foreground/20">
-              <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
-                — media coming soon —
-              </p>
+              <img
+                src="/conneQ/conneQ.jpeg"
+                alt="ConneQ"
+                className="w-full h-full object-cover"
+              />
             </div>
 
             {/* Right: Background */}
