@@ -5,22 +5,12 @@ import GlitchText from "@/components/GlitchText";
 
 const vaultItems = [
   {
-    title: "TREE CHAIR",
-    medium: "GENERATIVE 3D RENDER",
-    year: "2024",
-    media: { type: "image" as const, src: "/vaultItems/tree-chair.jpg" },
-  },
-  {
-    title: "AN OLD WOMAN I DIDN'T KNOW",
-    medium: "WRITING",
-    year: "2022",
-    media: { type: "image" as const, src: "/vaultItems/oldWoman.png" },
-  },
-  {
     title: "STORYBOARDING",
     medium: "SKETCH",
     year: "2025",
     media: { type: "image" as const, src: "/vaultItems/storyboard.png" },
+    text: "My friend made a song that sparked a conversation about the type of scene he pictured along with the song. This is a storyboard and some rough animations of the idea.",
+    secondaryMedia: { type: "video" as const, src: "/vaultItems/animate01.mp4" },
   },
   {
     title: "LOVE IN SILENCE",
@@ -29,15 +19,24 @@ const vaultItems = [
     text: "",
   },
   {
+    title: "TREE CHAIR",
+    medium: "GENERATIVE 3D RENDER",
+    year: "2024",
+    media: { type: "video" as const, src: "/vaultItems/benchClip.mov" },
+    text: "While on a walk, I saw a fallen tree stump that inspired an idea for a bark style bench. This is the original log, my vision, and an AI generated 3D render.",
+    secondaryMedia: { type: "image" as const, src: "/vaultItems/bench.png" },
+  },
+  {
+    title: "AT THE TRAIN STATION",
+    medium: "WRITING",
+    year: "2023",
+    text: "Setting: A curly haired girl sits on a wooden bench at Union Station, waiting for her train in an hour. The sound of the general public, hustle and bustle of an early Monday morning echos the large Union Station lobby. The crunch of an asian man eating snap peas catches her attention. She's typing furiously in her phone.",
+    link: "https://substack.com/@fr00tl00p/note/c-229415147?r=45xfi0&utm_source=notes-share-action&utm_medium=web",
+  },
+  {
     title: "MOTHER NATURE",
     medium: "POETRY",
     year: "2021",
-    text: "",
-  },
-  {
-    title: "THE MAN AT THE TRAIN STATION",
-    medium: "WRITING",
-    year: "2023",
     text: "",
   },
 ];
@@ -60,8 +59,7 @@ const Vault = () => {
               className="text-5xl md:text-7xl lg:text-8xl"
             />
             <p className="font-mono text-muted-foreground mt-4 max-w-lg text-sm">
-              Fragments, experiments, and unreleased work.
-              A curated chaos of creative exploration.
+              A weird collection of some of my creative chaoses, scrapped projects and explorations.
             </p>
           </motion.header>
 
@@ -80,6 +78,8 @@ const Vault = () => {
                 year={item.year}
                 media={"media" in item ? item.media : undefined}
                 text={"text" in item ? item.text : undefined}
+                link={"link" in item ? item.link : undefined}
+                secondaryMedia={"secondaryMedia" in item ? item.secondaryMedia as { type: "image" | "video"; src: string } : undefined}
               />
             ))}
             <div className="border-t border-foreground/20" />
