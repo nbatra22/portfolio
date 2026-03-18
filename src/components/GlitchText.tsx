@@ -8,7 +8,7 @@ interface GlitchTextProps {
 
 const GlitchText = ({ text, className = "", as: Tag = "h1" }: GlitchTextProps) => {
   return (
-    <motion.div 
+    <motion.div
       className={`relative inline-block ${className}`}
       whileHover="glitch"
     >
