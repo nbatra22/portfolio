@@ -67,11 +67,11 @@ const ConneQ = () => {
             </div>
 
             {/* Center: Media */}
-            <div className="bg-muted overflow-hidden aspect-[3/4] md:aspect-auto flex items-center justify-center border border-foreground/20">
+            <div className="flex items-center justify-center">
               <img
                 src="/conneQ/conneQ.jpeg"
                 alt="ConneQ"
-                className="w-full h-full object-cover"
+                className="max-h-96 object-contain border border-foreground/20"
               />
             </div>
 
