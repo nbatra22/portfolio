@@ -6,9 +6,9 @@ const Navigation = () => {
 
   const links = [
     { path: "/", label: "HOME" },
+    { path: "/chat", label: "CHAT" },
     { path: "/work", label: "WORK" },
     { path: "/vault", label: "VAULT" },
-    { path: "/chat", label: "CHAT" },
   ];
 
   return (
