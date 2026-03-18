@@ -6,12 +6,12 @@ import GlitchText from "@/components/GlitchText";
 const Work = () => {
   const featuredProjects = [
     {
-      title: "VOICEIQ",
-      description: "An industry level AI agent that handles complex IT support through voice conversation.",
-      category: "AI / ML",
-      link: "/work/voiceiq",
+      title: "CONNEQ",
+      description: "A wearable system that analyzes biometric data to output a named emotion and frequency of vibration.",
+      category: "AFFECTIVE COMPUTING x HAPTICS",
+      link: "/work/conneq",
       featured: true,
-      thumbnail: "/voiceIQthumbnail.jpg"
+      thumbnail: "/ConneQThumnbail.png"
     },
     {
       title: "SECOND SKIN",
@@ -22,12 +22,12 @@ const Work = () => {
       thumbnail: "/secondSkinthumbnail.jpeg"
     },
     {
-      title: "CONNEQ",
-      description: "A wearable system that analyzes biometric data to output a named emotion and frequency of vibration.",
-      category: "AFFECTIVE COMPUTING x HAPTICS",
-      link: "/work/conneq",
+      title: "VOICEIQ",
+      description: "An industry level AI agent that handles complex IT support through voice conversation.",
+      category: "AI / ML",
+      link: "/work/voiceiq",
       featured: true,
-      thumbnail: "/ConneQThumnbail.png"
+      thumbnail: "/voiceIQthumbnail.jpg"
     }
   ];
 
