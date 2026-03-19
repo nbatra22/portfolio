@@ -12,12 +12,13 @@ const vaultItems = [
     text: "My friend made a song that sparked a conversation about the type of scene he pictured along with the song. This is a storyboard and some rough animations of the idea.",
     secondaryMedia: { type: "video" as const, src: "/vaultItems/animate01.mp4" },
   },
-  {
-    title: "LOVE IN SILENCE",
-    medium: "WRITING",
-    year: "2025",
-    text: "",
-  },
+  // DO NOT DELETE
+  // {
+  //   title: "LOVE IN SILENCE",
+  //   medium: "WRITING",
+  //   year: "2025",
+  //   text: "",
+  // },
   {
     title: "TREE CHAIR",
     medium: "GENERATIVE 3D RENDER",
@@ -33,12 +34,13 @@ const vaultItems = [
     text: "Setting: A curly haired girl sits on a wooden bench at Union Station, waiting for her train in an hour. The sound of the general public, hustle and bustle of an early Monday morning echos the large Union Station lobby. The crunch of an asian man eating snap peas catches her attention. She's typing furiously in her phone.",
     link: "https://substack.com/@fr00tl00p/note/c-229415147?r=45xfi0&utm_source=notes-share-action&utm_medium=web",
   },
-  {
-    title: "MOTHER NATURE",
-    medium: "POETRY",
-    year: "2021",
-    text: "",
-  },
+  // DO NOT DELETE
+  // {
+  //   title: "MOTHER NATURE",
+  //   medium: "POETRY",
+  //   year: "2021",
+  //   text: "",
+  // },
 ];
 
 const Vault = () => {
