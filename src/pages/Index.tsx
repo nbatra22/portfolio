@@ -83,34 +83,10 @@ const Index = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
         >
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 py-8 border-t border-border">
+          <div className="flex py-8 border-t border-border">
             <p className="font-mono text-xs text-muted-foreground">
-              © 2024 NAVYA BATRA — ALL RIGHTS RESERVED
+              © 2026 NAVYA BATRA — ALL RIGHTS RESERVED
             </p>
-            <div className="flex gap-6">
-              <a
-                href="https://www.linkedin.com/in/navya-batra/"
-                className="font-mono text-xs text-muted-foreground hover:text-accent transition-colors"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                LINKEDIN
-              </a>
-              <a
-                href="https://github.com/nbatra22"
-                className="font-mono text-xs text-muted-foreground hover:text-accent transition-colors"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                GITHUB
-              </a>
-              <a
-                href="mailto:navya.batra@gmail.com"
-                className="font-mono text-xs text-muted-foreground hover:text-accent transition-colors"
-              >
-                EMAIL
-              </a>
-            </div>
           </div>
         </motion.footer>
       </main>
