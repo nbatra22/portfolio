@@ -5,7 +5,7 @@ import Navigation from "@/components/Navigation";
 import GlitchText from "@/components/GlitchText";
 
 interface MediaItem {
-  type: "image" | "video";
+  type: "image" | "video" | "vimeo";
   src: string;
 }
 
@@ -53,8 +53,8 @@ I could deliberately use unconventional graphics and styles in order to enhance 
     title: "Projection",
     text: "After encountering depth-perception roadblocks when trying to project onto a moving body, I pivoted to a high-contrast, projection system backdrop. This gave a more \"technical minimalism\" feel to the project and allowed the animations to read cleanly against the performer.",
     media: [
-      { type: "video", src: "/secondSkin/phase4_media0.mov" },
-      { type: "video", src: "/secondSkin/phase4_media1.mov" },
+      { type: "vimeo", src: "1175380169" },
+      { type: "vimeo", src: "1175380228" },
     ],
     align: "right",
     layout: "diagonal",
@@ -85,6 +85,21 @@ const MediaLoader = () => (
 
 const RenderMedia = ({ item }: { item: MediaItem }) => {
   const [loaded, setLoaded] = useState(false);
+  if (item.type === "vimeo") {
+    return (
+      <div className="relative w-full h-full overflow-hidden">
+        {!loaded && <MediaLoader />}
+        <iframe
+          src={`https://player.vimeo.com/video/${item.src}?background=1&autopause=0&player_id=0&app_id=58479`}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          style={{ border: "none", width: "calc(100% + 200px)", height: "calc(100% + 200px)" }}
+          allow="autoplay; fullscreen; picture-in-picture"
+          onLoad={() => setLoaded(true)}
+        />
+        <div className="absolute inset-0 pointer-events-none" />
+      </div>
+    );
+  }
   if (item.type === "video") {
     return (
       <div className="relative w-full h-full">
