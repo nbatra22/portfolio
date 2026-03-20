@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Navigation from "@/components/Navigation";
 import GlitchText from "@/components/GlitchText";
 import { useSession } from "@/contexts/SessionContext";
@@ -33,9 +33,11 @@ const Chat = () => {
   });
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     sessionStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   useEffect(() => {
@@ -113,7 +115,7 @@ const Chat = () => {
           </motion.header>
 
           {/* Chat area */}
-          <div className="flex-1 border-brutal bg-card p-4 md:p-6 overflow-y-auto mb-4 space-y-4">
+          <div className="h-[calc(100vh-380px)] min-h-[200px] border-brutal bg-card p-4 md:p-6 overflow-y-auto mb-4 space-y-4">
             {messages.map((msg, i) => (
               <motion.div
                 key={i}
@@ -157,6 +159,8 @@ const Chat = () => {
                 </div>
               </motion.div>
             )}
+
+            <div ref={bottomRef} />
           </div>
 
           {/* Input */}
