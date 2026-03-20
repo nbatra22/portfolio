@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import GlitchText from "@/components/GlitchText";
@@ -67,27 +68,71 @@ I could deliberately use unconventional graphics and styles in order to enhance 
   },
 ];
 
-const renderMedia = (item: MediaItem, key: string) => {
+const MediaLoader = () => (
+  <div className="absolute inset-0 flex items-center justify-center bg-muted">
+    <div className="flex gap-1">
+      {[0, 1, 2].map((i) => (
+        <motion.div
+          key={i}
+          className="w-1 h-4 bg-foreground/30"
+          animate={{ scaleY: [1, 2, 1] }}
+          transition={{ duration: 0.8, repeat: Infinity, delay: i * 0.15 }}
+        />
+      ))}
+    </div>
+  </div>
+);
+
+const RenderMedia = ({ item }: { item: MediaItem }) => {
+  const [loaded, setLoaded] = useState(false);
   if (item.type === "video") {
     return (
-      <video
-        key={key}
-        className="w-full h-full object-cover"
-        src={item.src}
-        autoPlay
-        loop
-        muted
-        playsInline
-      />
+      <div className="relative w-full h-full">
+        {!loaded && <MediaLoader />}
+        <video
+          className="w-full h-full object-cover"
+          src={item.src}
+          autoPlay
+          loop
+          muted
+          playsInline
+          onCanPlay={() => setLoaded(true)}
+        />
+      </div>
     );
   }
   return (
-    <img
-      key={key}
-      src={item.src}
-      alt=""
-      className="w-full h-full object-cover"
-    />
+    <div className="relative w-full h-full">
+      {!loaded && <MediaLoader />}
+      <img
+        src={item.src}
+        alt=""
+        className="w-full h-full object-cover"
+        onLoad={() => setLoaded(true)}
+      />
+    </div>
+  );
+};
+
+const renderMedia = (item: MediaItem, key: string) => (
+  <RenderMedia key={key} item={item} />
+);
+
+const VimeoEmbed = () => {
+  const [loaded, setLoaded] = useState(false);
+  return (
+    <div className="bg-muted overflow-hidden aspect-[3/4] md:aspect-auto relative">
+      {!loaded && <MediaLoader />}
+      <iframe
+        src="https://player.vimeo.com/video/1175379862?background=1&autopause=0&player_id=0&app_id=58479"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+        style={{ border: "none", width: "calc(100% + 200px)", height: "calc(100% + 200px)" }}
+        allow="autoplay; fullscreen; picture-in-picture"
+        title="SecondSkin-It1"
+        onLoad={() => setLoaded(true)}
+      />
+      <div className="absolute inset-0 pointer-events-none" />
+    </div>
   );
 };
 
@@ -231,16 +276,7 @@ const SecondSkin = () => {
             </div>
 
             {/* Center thumbnail media */}
-            <div className="bg-muted overflow-hidden aspect-[3/4] md:aspect-auto">
-              <video
-                className="w-full h-full object-cover"
-                src="/secondSkin/SecondSkin-It1.mov"
-                autoPlay
-                loop
-                muted
-                playsInline
-              />
-            </div>
+            <VimeoEmbed />
 
             {/* Background */}
             <div className="space-y-3">
