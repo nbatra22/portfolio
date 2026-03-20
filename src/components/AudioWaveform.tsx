@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import p5 from "p5";
 
 interface AudioWaveformProps {
@@ -205,6 +206,20 @@ const AudioWaveform = ({ src, className }: AudioWaveformProps) => {
 
   return (
     <div ref={wrapperRef} className={`relative ${className ?? ""}`}>
+      {!loaded && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black z-10">
+          <div className="flex gap-1">
+            {[0, 1, 2].map((i) => (
+              <motion.div
+                key={i}
+                className="w-1 h-4 bg-white/30"
+                animate={{ scaleY: [1, 2, 1] }}
+                transition={{ duration: 0.8, repeat: Infinity, delay: i * 0.15 }}
+              />
+            ))}
+          </div>
+        </div>
+      )}
       <div ref={containerRef} style={{ width: "100%", height: "100%" }} />
     </div>
   );
