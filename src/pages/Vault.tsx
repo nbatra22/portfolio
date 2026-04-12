@@ -4,6 +4,13 @@ import VaultItem from "@/components/VaultItem";
 import GlitchText from "@/components/GlitchText";
 
 const vaultItems = [
+    {
+    title: "CO-EVOLUTION: TECHNOLOGY AND HUMANITY",
+    medium: "WRITING",
+    year: "2026",
+    text: "I saw a video discussion on Meta's new Tribe v2 model. Got me thinking about technology and it's trajectory. Wrote about it:)",
+    link: "https://fr00tl00p.substack.com/p/co-evolution-technology-and-humanity",
+  },
   {
     title: "STORYBOARDING",
     medium: "SKETCH",
@@ -61,7 +68,7 @@ const Vault = () => {
               className="text-5xl md:text-7xl lg:text-8xl"
             />
             <p className="font-mono text-muted-foreground mt-4 max-w-lg text-sm">
-              A weird collection of some of my creative chaoses, scrapped projects and explorations.
+              A weird collection of some of my creative chaos, scrapped projects or explorations.
             </p>
           </motion.header>
 
