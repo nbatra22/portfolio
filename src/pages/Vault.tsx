@@ -8,7 +8,7 @@ const vaultItems = [
     title: "CO-EVOLUTION: TECHNOLOGY AND HUMANITY",
     medium: "WRITING",
     year: "2026",
-    text: "I saw a video discussion on Meta's new Tribe v2 model. Got me thinking about technology and it's trajectory. Wrote about it:)",
+    text: "I saw a video discussion on Meta's new Tribe v2 model. Got me thinking about technology and its trajectory. Wrote about it:)",
     link: "https://fr00tl00p.substack.com/p/co-evolution-technology-and-humanity",
   },
   {
