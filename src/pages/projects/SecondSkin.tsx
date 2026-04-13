@@ -22,9 +22,7 @@ const phases: Phase[] = [
   {
     number: "01",
     title: "Planning",
-    text: `The inspiration for this project came from a moment of friction at a fashion tech event. This event marketed itself as the intersection of fashion and technology and integrated augmented reality throughout the show. By the halfway mark, the entire audience had abandoned their VR headsets and post show feedback was largely negative. The technology was said to not integrate well with the show, and headsets were uncomfortable for long periods of time.
-
-I decided I wanted to try integrating technology, animation, and graphics using my computer science background and my interest in fashion and design. My initial plan was to project dynamic visuals directly onto a performer's body using depth perception.`,
+    text: `This is the first sketch of my project idea. I had initially planned to project animations and graphics directly onto the model, to mimic the attempt from the Augmented Realty fashion show. This proved to later have some roadblocks.`,
     media: [
       { type: "image", src: "/secondSkin/phase0_pic1.jpg" },
       { type: "image", src: "/secondSkin/phase0_pic2.jpg" },
@@ -35,14 +33,14 @@ I decided I wanted to try integrating technology, animation, and graphics using 
   {
     number: "02",
     title: "First Build",
-    text: "I used MediaPipe and OpenCV in Python to extract a bare-bone live-feed skeleton of the user. I tried using DensePose first to extract a 3D render, but my hardware didn't support 3D mapping software. This first iteration gave me a working skeleton tracker but needed artistic refinement.",
+    text: "I used MediaPipe and OpenCV in Python to extract a bare-bone live-feed skeleton of the user. The plan was to use this skeleton as a framework. I had first used DensePose to extract a 3D render, so animations could project cleanly on top of a model, but my hardware didn't support 3D mapping software. This first iteration gave me a working 2D skeleton, allowing me to test out projection mapping and animation ideas, but lacked the depth perception needed to project directly onto the body.",
     media: [{ type: "image", src: "/secondSkin/phase2.png" }],
     align: "right",
   },
   {
     number: "03",
     title: "Animate + Logic",
-    text: `To gain more artistic control, I integrated TouchDesigner. This allowed me to experiment with "cyber-glitch core" aesthetics that respond fluidly to the MediaPipe coordinates. It also gave me more freedom to explore counterfunctional design as a concept.
+    text: `To gain more artistic control, I integrated TouchDesigner. This allowed me to experiment with "cyber-glitch core" aesthetics that respond fluidly to the MediaPipe 2D coordinates. It also gave me more freedom to explore counterfunctional design and projection mapping as a concept.
 
 I could deliberately use unconventional graphics and styles in order to enhance the feeling of technology and give a glitch, futuristic vibe.`,
     media: [],
@@ -51,7 +49,7 @@ I could deliberately use unconventional graphics and styles in order to enhance 
   {
     number: "04",
     title: "Projection",
-    text: "After encountering depth-perception roadblocks when trying to project onto a moving body, I pivoted to a high-contrast, projection system backdrop. This gave a more \"technical minimalism\" feel to the project and allowed the animations to read cleanly against the performer.",
+    text: "After encountering depth-perception roadblocks when trying to project onto a moving body, I pivoted to a high-contrast, projection system backdrop. This gave a more \"technical minimalism\" feel to the project and allowed the animations to project cleanly behind the performer or model.",
     media: [
       { type: "vimeo", src: "1175380169" },
       { type: "vimeo", src: "1175380228" },
