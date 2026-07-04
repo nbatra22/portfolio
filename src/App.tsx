@@ -4,12 +4,11 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SessionProvider } from "./contexts/SessionContext";
+import Navigation from "./components/Navigation";
+import ChatWidget from "./components/ChatWidget";
 import Index from "./pages/Index";
 import Work from "./pages/Work";
 import Vault from "./pages/Vault";
-import Chat from "./pages/Chat";
-import ProjectDetail from "./pages/ProjectDetail";
-import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -21,15 +20,14 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <Navigation />
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/about" element={<About />} />
             <Route path="/work" element={<Work />} />
-            <Route path="/work/:slug" element={<ProjectDetail />} />
             <Route path="/vault" element={<Vault />} />
-            <Route path="/chat" element={<Chat />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <ChatWidget />
         </BrowserRouter>
       </TooltipProvider>
     </SessionProvider>

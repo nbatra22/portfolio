@@ -1,10 +1,8 @@
 import { motion } from "framer-motion";
-import Navigation from "@/components/Navigation";
-import VaultItem from "@/components/VaultItem";
-import GlitchText from "@/components/GlitchText";
+import VaultTile, { VaultTileData } from "@/components/VaultTile";
 
-const vaultItems = [
-    {
+const vaultItems: VaultTileData[] = [
+  {
     title: "CO-EVOLUTION: TECHNOLOGY AND HUMANITY",
     medium: "WRITING",
     year: "2026",
@@ -15,9 +13,8 @@ const vaultItems = [
     title: "STORYBOARDING",
     medium: "SKETCH",
     year: "2025",
-    media: { type: "image" as const, src: "/vaultItems/storyboard.png" },
+    media: { type: "image", src: "/vaultItems/storyboard.png" },
     text: "My friend made a song that sparked a conversation about the type of scene he pictured along with the song. This is a storyboard and some rough animations of the idea.",
-    secondaryMedia: { type: "video" as const, src: "/vaultItems/animate01.mp4" },
   },
   // DO NOT DELETE
   // {
@@ -30,15 +27,14 @@ const vaultItems = [
     title: "TREE CHAIR",
     medium: "GENERATIVE 3D RENDER",
     year: "2024",
-    media: { type: "video" as const, src: "/vaultItems/benchClip.mov" },
+    media: { type: "video", src: "/vaultItems/benchClip.mov" },
     text: "While on a walk, I saw a fallen tree stump that inspired an idea for a bark style bench. This is the original log, my vision, and an AI generated 3D render.",
-    secondaryMedia: { type: "image" as const, src: "/vaultItems/bench.png" },
   },
   {
     title: "AT THE TRAIN STATION",
     medium: "WRITING",
     year: "2023",
-    text: "Setting: A curly haired girl sits on a wooden bench at Union Station, waiting for her train in an hour. The sound of the general public, hustle and bustle of an early Monday morning echos the large Union Station lobby. The crunch of an asian man eating snap peas catches her attention. She's typing furiously in her phone.",
+    text: "Setting: A curly haired girl sits on a wooden bench at Union Station, waiting for her train in an hour. The sound of the general public, hustle and bustle of an early Monday morning echos the large Union Station lobby.",
     link: "https://substack.com/@fr00tl00p/note/c-229415147?r=45xfi0&utm_source=notes-share-action&utm_medium=web",
   },
   // DO NOT DELETE
@@ -52,60 +48,35 @@ const vaultItems = [
 
 const Vault = () => {
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-
-      <main className="pt-24 md:pt-28 pb-16">
+    <div className="min-h-screen bg-[#08090d]">
+      <main className="pt-28 pb-24 md:pt-36">
         <div className="container mx-auto px-4 md:px-8">
-          {/* Header */}
-          <motion.header
-            className="mb-12 md:mb-16"
+          <motion.p
+            className="font-nav max-w-lg text-sm text-muted-foreground"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
-            <GlitchText
-              text="VAULT"
-              className="text-5xl md:text-7xl lg:text-8xl"
-            />
-            <p className="font-mono text-muted-foreground mt-4 max-w-lg text-sm">
-              A weird collection of some of my creative chaos, scrapped projects or explorations.
-            </p>
-          </motion.header>
+            A weird collection of some of my creative chaos, scrapped
+            projects or explorations.
+          </motion.p>
 
-          {/* List */}
-          <motion.section
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-          >
+          <section className="mt-8 grid grid-cols-2 gap-3 md:mt-10 md:grid-cols-3 md:gap-4">
             {vaultItems.map((item, index) => (
-              <VaultItem
-                key={item.title}
-                index={index}
-                title={item.title}
-                medium={item.medium}
-                year={item.year}
-                media={"media" in item ? item.media : undefined}
-                text={"text" in item ? item.text : undefined}
-                link={"link" in item ? item.link : undefined}
-                secondaryMedia={"secondaryMedia" in item ? item.secondaryMedia as { type: "image" | "video"; src: string } : undefined}
-              />
+              <VaultTile key={item.title} item={item} index={index} />
             ))}
-            <div className="border-t border-foreground/20" />
-          </motion.section>
+          </section>
 
-          {/* Info bar */}
           <motion.div
-            className="mt-12 flex justify-between items-center"
+            className="mt-10 flex items-center justify-between"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
+            transition={{ delay: 0.3 }}
           >
-            <span className="font-mono text-xs text-muted-foreground">
+            <span className="font-nav text-xs text-muted-foreground">
               {vaultItems.length} ARTIFACTS
             </span>
-            <span className="font-mono text-xs text-muted-foreground">
-              CLICK TO EXPAND
+            <span className="font-nav text-xs text-muted-foreground">
+              HOVER TO EXPAND
             </span>
           </motion.div>
         </div>

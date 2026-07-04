@@ -21,6 +21,7 @@ export default {
       fontFamily: {
         display: ['Bebas Neue', 'sans-serif'],
         mono: ['Space Mono', 'monospace'],
+        nav: ['-apple-system', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",

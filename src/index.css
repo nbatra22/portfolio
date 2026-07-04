@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 4%;
+    --background: 228 24% 4%;
     --foreground: 45 10% 90%;
 
     --card: 0 0% 6%;
@@ -24,7 +24,7 @@
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 55%;
 
-    --accent: 0 75% 55%;
+    --accent: 145 35% 32%;
     --accent-foreground: 45 10% 90%;
 
     --destructive: 0 84.2% 60.2%;
@@ -38,17 +38,20 @@
 
     /* Custom brutalist tokens */
     --grain-opacity: 0.04;
-    --glow-accent: 0 75% 55%;
+    --glow-accent: 145 35% 32%;
     --text-glow: 0 0 20px hsl(var(--accent) / 0.5);
     --hover-shift: 4px;
     
     /* Typography */
     --font-display: 'Bebas Neue', sans-serif;
     --font-mono: 'Space Mono', monospace;
+    /* Plain system sans for nav signage — no font import, kept quiet
+       and unflashy against the home page's atmosphere. */
+    --font-nav: -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
   .dark {
-    --background: 0 0% 4%;
+    --background: 228 24% 4%;
     --foreground: 45 10% 90%;
   }
 }
