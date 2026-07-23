@@ -1,6 +1,5 @@
-import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { motion, useMotionValue, useTransform } from "framer-motion";
 import heroBridge from "@/assets/hero-bridge.jpg";
 
 // Distance, in pixels, that WORK and VAULT sit from the waterline —
@@ -39,6 +38,51 @@ const BridgeWaterScene = () => {
   const bottomCanvasRef = useRef<HTMLCanvasElement>(null);
   const flippedRef = useRef<HTMLCanvasElement | null>(null);
   const vaultRippleRef = useRef<HTMLDivElement>(null);
+
+  // The hero is pinned (sticky) for one extra viewport-height of scroll —
+  // during that "slack", the page itself doesn't go anywhere; the scroll
+  // delta directly scrubs the panel split instead. Only once the panels
+  // are fully off-screen does the pin release and normal scrolling carry
+  // you into Work (and further, Vault), which sit pulled up directly
+  // behind the hero the whole time (see the -100vh wrapper in Index.tsx).
+  const [slackPx, setSlackPx] = useState(
+    () => (typeof window !== "undefined" ? window.innerHeight : 900)
+  );
+  const scrollY = useMotionValue(
+    typeof window !== "undefined" ? window.scrollY : 0
+  );
+
+  useEffect(() => {
+    const onScroll = () => scrollY.set(window.scrollY);
+    const onResize = () => setSlackPx(window.innerHeight);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize);
+    onScroll();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+    };
+  }, [scrollY]);
+
+  // 0 = fully closed (at the very top), 1 = fully open (scrolled through
+  // one viewport-height of pin slack).
+  const foldProgress = useTransform(scrollY, (y) =>
+    Math.min(1, Math.max(0, y / slackPx))
+  );
+
+  // Matches the panels' own opacity pacing (holds, then fades late) so the
+  // backdrop doesn't reveal Work/Vault in the margins before the panels
+  // themselves have actually started sliding away.
+  const backdropOpacity = useTransform(foldProgress, [0, 0.7, 1], [1, 1, 0]);
+  const topY = useTransform(foldProgress, [0, 1], ["0%", "-100%"]);
+  const topOpacity = useTransform(foldProgress, [0, 0.7, 1], [1, 1, 0]);
+  const bottomY = useTransform(foldProgress, [0, 1], ["0%", "100%"]);
+  const bottomOpacity = useTransform(foldProgress, [0, 0.7, 1], [1, 1, 0]);
+
+  const scrollToSection = (target: "work" | "vault") => (e: React.MouseEvent) => {
+    e.preventDefault();
+    document.getElementById(target)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   useEffect(() => {
     const topBox = topBoxRef.current;
@@ -208,113 +252,164 @@ const BridgeWaterScene = () => {
   }, []);
 
   return (
-    <div className="absolute inset-0 flex flex-col">
-      {/* Full-scene vignette — quiet, empty-room unease at the edges */}
+    <div className="relative w-full" style={{ height: `calc(100vh + ${slackPx}px)` }}>
       <div
-        className="pointer-events-none absolute inset-0 z-30"
-        style={{
-          background:
-            "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 55%, #08090d 100%)",
-        }}
-      />
-
-      {/* Top: the bridge, upside down — canopy at the waterline */}
-      <div
-        ref={topBoxRef}
-        className="relative flex justify-center"
-        style={{ height: "50%" }}
+        id="home"
+        className="sticky top-0 z-10 h-screen w-full overflow-hidden"
       >
-        <canvas
-          ref={topCanvasRef}
-          className="h-full"
-          style={{
-            width: "70vw",
-            maxWidth: "1400px",
-            filter: "brightness(0.55) saturate(1.15) contrast(1.05)",
-          }}
-        />
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse 60% 90% at 50% 20%, transparent 40%, #08090d 100%)",
-          }}
-        />
+        <div className="absolute inset-0 flex flex-col">
+          {/* Opaque backdrop for the closed state — the canvases are only
+              70vw wide, so without this the side margins would already
+              show Work/Vault (pulled up directly behind the hero) before
+              any scrolling has happened. Fades out with the fold. */}
+          <motion.div
+            className="pointer-events-none absolute inset-0 z-0"
+            style={{ background: "#08090d", opacity: backdropOpacity }}
+          />
 
-        {/* WORK — close above the waterline */}
-        <Link
-          to="/work"
-          className="absolute z-20 left-1/2 -translate-x-1/2"
-          style={{ bottom: `${SIGN_OFFSET_PX}px` }}
-        >
-          <motion.span
-            className="flex items-center justify-center border border-white/25 bg-[#08090d]/60 px-5 py-2 font-nav text-[11px] uppercase tracking-[0.3em] text-foreground/90 backdrop-blur-[2px]"
-            whileHover={{
-              color: "hsl(var(--accent))",
-              borderColor: "hsl(var(--accent) / 0.7)",
-              boxShadow: "0 0 18px hsl(var(--accent) / 0.35)",
+          {/* Full-scene vignette — quiet, empty-room unease at the edges */}
+          <motion.div
+            className="pointer-events-none absolute inset-0 z-30"
+            style={{
+              background:
+                "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 55%, #08090d 100%)",
+              opacity: backdropOpacity,
+            }}
+          />
+
+          {/* Top: the bridge, upside down — canopy at the waterline. Slides
+              straight up off-screen, scrubbed by scroll position. */}
+          <motion.div
+            className="relative"
+            style={{
+              height: "50%",
+              y: topY,
+              opacity: topOpacity,
             }}
           >
-            Work
-          </motion.span>
-        </Link>
-      </div>
+            <div ref={topBoxRef} className="relative flex h-full w-full justify-center">
+              <canvas
+                ref={topCanvasRef}
+                className="h-full"
+                style={{
+                  width: "70vw",
+                  maxWidth: "1400px",
+                  filter: "brightness(0.55) saturate(1.15) contrast(1.05)",
+                }}
+              />
+              <div
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  background:
+                    "radial-gradient(ellipse 60% 90% at 50% 20%, transparent 40%, #08090d 100%)",
+                }}
+              />
 
-      {/* Waterline */}
-      <div className="relative z-10 h-px w-full bg-white/10" />
+              {/* WORK — close above the waterline */}
+              <a
+                href="#work"
+                onClick={scrollToSection("work")}
+                className="absolute z-20 left-1/2 -translate-x-1/2"
+                style={{ bottom: `${SIGN_OFFSET_PX}px` }}
+              >
+                <motion.span
+                  className="flex items-center justify-center gap-2 border border-white/25 bg-[#08090d]/60 px-5 py-2 font-nav text-[11px] uppercase tracking-[0.3em] text-foreground/90 backdrop-blur-[2px]"
+                  whileHover={{
+                    color: "hsl(var(--accent))",
+                    borderColor: "hsl(var(--accent) / 0.7)",
+                    boxShadow: "0 0 18px hsl(var(--accent) / 0.35)",
+                  }}
+                >
+                  Work
+                  <motion.svg
+                    aria-hidden="true"
+                    width="10"
+                    height="10"
+                    viewBox="0 0 10 10"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    animate={{ y: [0, 3, 0] }}
+                    transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <path d="M2 3.5 5 7 8 3.5" />
+                  </motion.svg>
+                </motion.span>
+              </a>
+            </div>
+          </motion.div>
 
-      {/* Bottom: rippling reflection — softer, cooler, murkier than the
-          object it reflects, like a real lake instead of a flipped photo */}
-      <div ref={bottomBoxRef} className="relative flex flex-1 justify-center">
-        <canvas
-          ref={bottomCanvasRef}
-          className="h-full"
-          style={{
-            width: "70vw",
-            maxWidth: "1400px",
-            filter:
-              "blur(1.4px) brightness(0.28) saturate(0.75) contrast(0.9) hue-rotate(-8deg)",
-          }}
-        />
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse 65% 130% at 50% -10%, hsl(200 30% 20% / 0.18) 0%, transparent 55%), radial-gradient(ellipse 65% 130% at 50% -10%, transparent 55%, #08090d 100%)",
-          }}
-        />
+          {/* Waterline — the hinge line the two doors fold along */}
+          <motion.div
+            className="relative z-10 h-px w-full bg-white/10"
+            style={{ opacity: backdropOpacity }}
+          />
 
-        {/* VAULT — the mirrored, upside-down reflection of WORK */}
-        <Link
-          to="/vault"
-          className="absolute z-20 left-1/2 -translate-x-1/2"
-          style={{ top: `${SIGN_OFFSET_PX}px` }}
-        >
-          <div ref={vaultRippleRef}>
-            <motion.span
-              className="flex items-center justify-center border border-white/15 bg-[#08090d]/50 px-5 py-2 font-nav text-[11px] uppercase tracking-[0.3em] text-foreground/60 backdrop-blur-[2px]"
-              style={{ scaleY: -1 }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: [0.5, 0.7, 0.55, 0.7] }}
-              transition={{
-                opacity: {
-                  delay: 1,
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                },
-              }}
-              whileHover={{
-                color: "hsl(var(--accent))",
-                borderColor: "hsl(var(--accent) / 0.6)",
-                boxShadow: "0 0 18px hsl(var(--accent) / 0.3)",
-                opacity: 1,
-              }}
-            >
-              Vault
-            </motion.span>
-          </div>
-        </Link>
+          {/* Bottom: rippling reflection — softer, cooler, murkier than the
+              object it reflects, like a real lake instead of a flipped photo.
+              Slides straight down off-screen in sync with the top. */}
+          <motion.div
+            className="relative flex-1"
+            style={{
+              y: bottomY,
+              opacity: bottomOpacity,
+            }}
+          >
+            <div ref={bottomBoxRef} className="relative flex h-full w-full justify-center">
+              <canvas
+                ref={bottomCanvasRef}
+                className="h-full"
+                style={{
+                  width: "70vw",
+                  maxWidth: "1400px",
+                  filter:
+                    "blur(1.4px) brightness(0.28) saturate(0.75) contrast(0.9) hue-rotate(-8deg)",
+                }}
+              />
+              <div
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  background:
+                    "radial-gradient(ellipse 65% 130% at 50% -10%, hsl(200 30% 20% / 0.18) 0%, transparent 55%), radial-gradient(ellipse 65% 130% at 50% -10%, transparent 55%, #08090d 100%)",
+                }}
+              />
+
+              {/* VAULT — sits in the reflection but reads right-side up */}
+              <a
+                href="#vault"
+                onClick={scrollToSection("vault")}
+                className="absolute z-20 left-1/2 -translate-x-1/2"
+                style={{ top: `${SIGN_OFFSET_PX}px` }}
+              >
+                <div ref={vaultRippleRef}>
+                  <motion.span
+                    className="flex items-center justify-center border border-white/15 bg-[#08090d]/50 px-5 py-2 font-nav text-[11px] uppercase tracking-[0.3em] text-foreground/60 backdrop-blur-[2px]"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: [0.5, 0.7, 0.55, 0.7] }}
+                    transition={{
+                      opacity: {
+                        delay: 1,
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      },
+                    }}
+                    whileHover={{
+                      color: "hsl(var(--accent))",
+                      borderColor: "hsl(var(--accent) / 0.6)",
+                      boxShadow: "0 0 18px hsl(var(--accent) / 0.3)",
+                      opacity: 1,
+                    }}
+                  >
+                    Vault
+                  </motion.span>
+                </div>
+              </a>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </div>
   );
