@@ -9,6 +9,11 @@ const projects: WorkProject[] = [
       "A re-design of a physician facing data dashboard for a health-tech startup.",
     link: "https://www.figma.com/deck/PiXudvsd2WousaS7yn8VeJ/DataDashboard-Redesign?node-id=32-66&t=r1LQYNQg3hHL0zSi-1",
     media: [],
+    subsections: [
+      { title: "Alert System" },
+      { title: "Stroke Risk Score System" },
+      { title: "System Migration" },
+    ],
   },
   {
     title: "VoiceIQ",
@@ -17,7 +22,7 @@ const projects: WorkProject[] = [
     description:
       "An industry level AI agent that handles complex IT support through voice conversation.",
     link: "#",
-    media: [],
+    media: [{ type: "audio", src: "/voiceIQ/voiceIQFlow2.mp3" }],
   },
 ];
 
@@ -25,20 +30,25 @@ const WorkSection = () => {
   return (
     <section
       id="work"
-      className="bg-[#08090d] pt-24 pb-24 md:pt-28"
+      className="bg-[#08090d] pb-24"
     >
-      <div className="container mx-auto px-4 md:px-8">
-        <p className="font-nav max-w-lg text-sm text-muted-foreground">
-          Selected projects spanning AI, creative coding, and immersive
-          experiences.
-        </p>
-
-        <div className="mt-4">
-          {projects.map((project) => (
-            <WorkProjectRow key={project.title} project={project} />
-          ))}
-          <div className="border-t border-white/10" />
+      {/* Full-width backdrop so nothing shows through beside the nav links
+          as rows scroll underneath — mirrors Navigation's own full-bleed +
+          inner-container pattern. */}
+      <div className="sticky top-0 z-10 w-full bg-[#08090d] pt-20 pb-6">
+        <div className="container mx-auto px-4 md:px-8">
+          <p className="font-nav max-w-lg text-sm text-muted-foreground">
+            Industry projects in AI, data visualizations, and immersive
+            technical experiences.
+          </p>
         </div>
+      </div>
+
+      <div className="container mx-auto px-4 md:px-8">
+        {projects.map((project) => (
+          <WorkProjectRow key={project.title} project={project} />
+        ))}
+        <div className="border-t border-white/10" />
       </div>
     </section>
   );

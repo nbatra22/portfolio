@@ -35,10 +35,18 @@ const projects: WorkProject[] = [
     description:
       "A wearable system that analyzes biometric data to output a named emotion and frequency of vibration.",
     link: "#",
-    layout: "staggered",
+    layout: "row",
     media: [
       { type: "image", src: "/ConneQThumnbail.png" },
+      { type: "image", src: "/conneQ/conneQmedia3.JPG" },
       { type: "image", src: "/conneQ/conneQ.jpeg" },
+    ],
+    mediaColumns: [
+      [
+        { type: "image", src: "/ConneQThumnbail.png" },
+        { type: "image", src: "/conneQ/conneQmedia3.JPG" },
+      ],
+      [{ type: "image", src: "/conneQ/conneQ.jpeg" }],
     ],
   },
 ];
@@ -47,20 +55,25 @@ const VaultSection = () => {
   return (
     <section
       id="vault"
-      className="bg-[#08090d] pt-24 pb-24 md:pt-28"
+      className="bg-[#08090d] pb-24"
     >
-      <div className="container mx-auto px-4 md:px-8">
-        <p className="font-nav max-w-lg text-sm text-muted-foreground">
-          Further projects and experiments across computer vision, wearables,
-          and generative systems.
-        </p>
-
-        <div className="mt-4">
-          {projects.map((project) => (
-            <WorkProjectRow key={project.title} project={project} />
-          ))}
-          <div className="border-t border-white/10" />
+      {/* Full-width backdrop so nothing shows through beside the nav links
+          as rows scroll underneath — mirrors Navigation's own full-bleed +
+          inner-container pattern. */}
+      <div className="sticky top-0 z-10 w-full bg-[#08090d] pt-20 pb-6">
+        <div className="container mx-auto px-4 md:px-8">
+          <p className="font-nav max-w-lg text-sm text-muted-foreground">
+            Fun personal projects and experiments across computer vision,
+            wearables, and generative AI.
+          </p>
         </div>
+      </div>
+
+      <div className="container mx-auto px-4 md:px-8">
+        {projects.map((project) => (
+          <WorkProjectRow key={project.title} project={project} />
+        ))}
+        <div className="border-t border-white/10" />
       </div>
     </section>
   );
