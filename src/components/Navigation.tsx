@@ -1,4 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
+import { Menu, X } from "lucide-react";
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const externalLinks = [
@@ -16,6 +18,7 @@ const SCROLL_PAGE_PATHS = ["/", "/work", "/vault"];
 
 const Navigation = () => {
   const location = useLocation();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const breadcrumb = location.pathname.startsWith("/work")
     ? "/WORK"
     : location.pathname.startsWith("/vault")
@@ -26,6 +29,7 @@ const Navigation = () => {
   // we're already on it, going "home" means scrolling to the top rather
   // than a route change (which the scroll-spy would just override).
   const handleWordmarkClick = (e: React.MouseEvent) => {
+    setMobileMenuOpen(false);
     if (SCROLL_PAGE_PATHS.includes(location.pathname)) {
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -64,7 +68,8 @@ const Navigation = () => {
               )}
             </AnimatePresence>
           </Link>
-          <div className="flex items-center gap-6 md:gap-10">
+          {/* Desktop: links inline. Mobile: a hamburger toggling the panel below. */}
+          <div className="hidden items-center gap-10 md:flex">
             {externalLinks.map((link) => (
               <a
                 key={link.href}
@@ -88,8 +93,51 @@ const Navigation = () => {
               </a>
             ))}
           </div>
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen((open) => !open)}
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileMenuOpen}
+            className="text-foreground/70 transition-colors hover:text-foreground md:hidden"
+          >
+            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
         </div>
       </div>
+
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="overflow-hidden border-t border-white/10 bg-[#08090d] md:hidden"
+          >
+            <div className="container mx-auto flex flex-col px-4">
+              {externalLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="border-b border-white/5 py-4 last:border-b-0"
+                >
+                  <span
+                    className={`font-nav text-xs uppercase tracking-widest ${
+                      link.accent ? "" : "text-muted-foreground"
+                    }`}
+                    style={link.accent ? { color: "#E1306C" } : undefined}
+                  >
+                    {link.label}
+                  </span>
+                </a>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.nav>
   );
 };

@@ -1,20 +1,21 @@
 import WorkProjectRow, { WorkProject } from "@/components/WorkProjectRow";
 
 const projects: WorkProject[] = [
-  {
-    title: "Syntrillo Health",
-    date: "JAN 2026 - PRESENT",
-    category: "Data Viz",
-    description:
-      "A re-design of a physician facing data dashboard for a health-tech startup.",
-    link: "https://www.figma.com/deck/PiXudvsd2WousaS7yn8VeJ/DataDashboard-Redesign?node-id=32-66&t=r1LQYNQg3hHL0zSi-1",
-    media: [],
-    subsections: [
-      { title: "Alert System" },
-      { title: "Stroke Risk Score System" },
-      { title: "System Migration" },
-    ],
-  },
+  // Syntrillo Health — commented out for now.
+  // {
+  //   title: "Syntrillo Health",
+  //   date: "JAN 2026 - PRESENT",
+  //   category: "Data Viz",
+  //   description:
+  //     "A re-design of a physician facing data dashboard for a health-tech startup.",
+  //   link: "https://www.figma.com/deck/PiXudvsd2WousaS7yn8VeJ/DataDashboard-Redesign?node-id=32-66&t=r1LQYNQg3hHL0zSi-1",
+  //   media: [],
+  //   subsections: [
+  //     { title: "Alert System" },
+  //     { title: "Stroke Risk Score System" },
+  //     { title: "System Migration" },
+  //   ],
+  // },
   {
     title: "VoiceIQ",
     date: "SEPT 2025 - DEC 2025",
