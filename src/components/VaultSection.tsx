@@ -1,68 +1,18 @@
-import WorkProjectRow, { WorkProject } from "@/components/WorkProjectRow";
-
-const projects: WorkProject[] = [
-  {
-    title: "Second Skin",
-    date: "NOV 2025 - PRESENT",
-    category: "Computer Vision x Fashion Tech",
-    description:
-      "A projection-mapping system that uses computer vision to turn body movement into responsive digital art.",
-    link: "#",
-    layout: "grid",
-    media: [
-      { type: "video", src: "/secondSkin/secondSkin2.mov" },
-      { type: "image", src: "/secondSkinthumbnail.jpeg" },
-      { type: "image", src: "/secondSkin/phase2.png" },
-      { type: "video", src: "/secondSkin/phase4_media0.mov" },
-    ],
-  },
-  {
-    title: "ConneQ",
-    date: "MARCH 2026",
-    category: "Affective Computing x Haptics",
-    description:
-      "A wearable system that analyzes biometric data to output a named emotion and frequency of vibration.",
-    link: "#",
-    layout: "row",
-    media: [
-      { type: "image", src: "/ConneQThumnbail.png" },
-      { type: "image", src: "/conneQ/conneQmedia3.JPG" },
-      { type: "image", src: "/conneQ/conneQ.jpeg" },
-    ],
-    mediaColumns: [
-      [
-        { type: "image", src: "/ConneQThumnbail.png" },
-        { type: "image", src: "/conneQ/conneQmedia3.JPG" },
-      ],
-      [{ type: "image", src: "/conneQ/conneQ.jpeg" }],
-    ],
-  },
-];
+import WorkProjectRow from "@/components/WorkProjectRow";
+import SectionHeader from "@/components/SectionHeader";
+import { vaultProjects } from "@/data/projects";
 
 const VaultSection = () => {
   return (
-    <section
-      id="vault"
-      className="bg-[#08090d] pb-24"
-    >
-      {/* Full-width backdrop so nothing shows through beside the nav links
-          as rows scroll underneath — mirrors Navigation's own full-bleed +
-          inner-container pattern. */}
-      <div className="sticky top-0 z-10 w-full bg-[#08090d] pt-20 pb-6">
-        <div className="container mx-auto px-4 md:px-8">
-          <p className="font-nav max-w-lg text-sm text-muted-foreground">
-            Fun personal projects and experiments across computer vision,
-            wearables, and generative AI.
-          </p>
-        </div>
-      </div>
-
-      <div className="container mx-auto px-4 md:px-8">
-        {projects.map((project) => (
-          <WorkProjectRow key={project.title} project={project} />
-        ))}
-        <div className="border-t border-white/10" />
-      </div>
+    <section id="vault" className="bg-paper">
+      <SectionHeader
+        title="Vault"
+        caption="Personal explorations in computer vision, wearables, and the body as an interface."
+        count={vaultProjects.length}
+      />
+      {vaultProjects.map((project) => (
+        <WorkProjectRow key={project.title} project={project} />
+      ))}
     </section>
   );
 };

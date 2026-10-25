@@ -184,9 +184,9 @@ const AudioWaveform = ({ src, className }: AudioWaveformProps) => {
       };
 
       p.draw = () => {
-        // Matches the site's --background token (hsl(228 24% 4%) = #08090d)
-        // so the waveform blends into the page instead of sitting on pure black.
-        p.background(8, 9, 13);
+        // Pure black to match the ink frame the waveform sits in, so it reads
+        // as one dark screen rather than a box inside a box.
+        p.background(0);
 
         const isPlayingNow = isPlayingRef.current;
         const analyser = analyserRef.current;
@@ -267,7 +267,7 @@ const AudioWaveform = ({ src, className }: AudioWaveformProps) => {
       className={`group/wave relative block ${className ?? ""}`}
     >
       {!loaded && (
-        <div className="absolute inset-0 z-10 flex items-center justify-center bg-background">
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-ink">
           <div className="flex gap-1">
             {[0, 1, 2].map((i) => (
               <motion.div
@@ -283,7 +283,7 @@ const AudioWaveform = ({ src, className }: AudioWaveformProps) => {
       <div ref={containerRef} style={{ width: "100%", height: "100%" }} />
       {loaded && (
         <span className="pointer-events-none absolute inset-0 flex items-center justify-center">
-          <span className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/40 text-white backdrop-blur-sm transition-transform duration-200 group-hover/wave:scale-110">
+          <span className="flex h-11 w-11 items-center justify-center border-2 border-paper bg-ink text-paper transition-colors duration-200 group-hover/wave:border-accent group-hover/wave:bg-accent">
             {isPlaying ? <Pause size={16} /> : <Play size={16} className="ml-0.5" />}
           </span>
         </span>

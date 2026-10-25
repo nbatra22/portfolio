@@ -1,8 +1,9 @@
 import { useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import BridgeWaterScene from "@/components/BridgeWaterScene";
+import CoverSpread from "@/components/CoverSpread";
 import WorkSection from "@/components/WorkSection";
 import VaultSection from "@/components/VaultSection";
+import IndexSection from "@/components/IndexSection";
 
 const PATH_FOR_ID: Record<string, string> = {
   home: "/",
@@ -72,17 +73,12 @@ const Index = () => {
   }, [navigate]);
 
   return (
-    <div className="relative w-full bg-[#08090d]">
-      <BridgeWaterScene />
-      {/* Pulled up to sit directly behind the hero (which is pinned via
-          position: sticky for one viewport-height of scroll slack), so
-          the panels splitting off-screen reveal Work/Vault in place
-          rather than scrolling them into view from below. */}
-      <div className="relative" style={{ marginTop: "-100vh" }}>
-        <WorkSection />
-        <VaultSection />
-      </div>
-    </div>
+    <main className="relative w-full bg-paper text-ink">
+      <CoverSpread />
+      <WorkSection />
+      <VaultSection />
+      <IndexSection />
+    </main>
   );
 };
 

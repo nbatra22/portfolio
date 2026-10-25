@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+/* Helvetica Neue is the PDF's face; Inter stands in where it isn't installed. */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,54 +7,44 @@
 
 @layer base {
   :root {
-    --background: 228 24% 4%;
-    --foreground: 45 10% 90%;
+    --paper: 0 0% 100%;
+    --ink: 0 0% 0%;
+    --teal: 176 50% 48%;
 
-    --card: 0 0% 6%;
-    --card-foreground: 45 10% 90%;
+    --background: var(--paper);
+    --foreground: var(--ink);
 
-    --popover: 0 0% 6%;
-    --popover-foreground: 45 10% 90%;
+    --card: var(--paper);
+    --card-foreground: var(--ink);
 
-    --primary: 45 10% 90%;
-    --primary-foreground: 0 0% 4%;
+    --popover: var(--paper);
+    --popover-foreground: var(--ink);
 
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 45 10% 90%;
+    --primary: var(--ink);
+    --primary-foreground: var(--paper);
 
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 55%;
+    --secondary: 0 0% 92%;
+    --secondary-foreground: var(--ink);
 
-    --accent: 145 35% 32%;
-    --accent-foreground: 45 10% 90%;
+    --muted: 0 0% 92%;
+    --muted-foreground: 0 0% 35%;
+
+    --accent: 0 100% 50%;
+    --accent-foreground: var(--paper);
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 0 0% 18%;
-    --input: 0 0% 18%;
-    --ring: 45 10% 90%;
+    --border: var(--ink);
+    --input: var(--ink);
+    --ring: var(--ink);
 
     --radius: 0px;
 
-    /* Custom brutalist tokens */
-    --grain-opacity: 0.04;
-    --glow-accent: 145 35% 32%;
-    --text-glow: 0 0 20px hsl(var(--accent) / 0.5);
-    --hover-shift: 4px;
-    
-    /* Typography */
-    --font-display: 'Bebas Neue', sans-serif;
-    --font-mono: 'Space Mono', monospace;
-    /* Plain system sans for nav signage — no font import, kept quiet
-       and unflashy against the home page's atmosphere. */
-    --font-nav: -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font-sans: 'Helvetica Neue', Helvetica, Inter, Arial, sans-serif;
+    --font-nav: var(--font-sans);
   }
 
-  .dark {
-    --background: 228 24% 4%;
-    --foreground: 45 10% 90%;
-  }
 }
 
 @layer base {
@@ -62,106 +53,31 @@
   }
 
   body {
-    @apply bg-background text-foreground;
-    font-family: var(--font-mono);
-  }
-
-  /* Noise texture overlay */
-  body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: var(--grain-opacity);
-    pointer-events: none;
-    z-index: 9999;
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans);
   }
 
   ::selection {
-    background: hsl(var(--accent));
-    color: hsl(var(--background));
+    background: hsl(var(--ink));
+    color: hsl(var(--paper));
   }
 }
 
 @layer components {
-  .font-display {
-    font-family: var(--font-display);
-    letter-spacing: 0.02em;
+  .font-nav {
+    font-family: var(--font-nav);
   }
 
-  .font-mono {
-    font-family: var(--font-mono);
+  /* Hovering a project title prints it in red with a teal plate offset
+     behind it — the misregistered look of the PDF's headings. */
+  .glitch-hover {
+    transition: color 0.15s ease, text-shadow 0.15s ease;
   }
 
-  .text-glitch {
-    position: relative;
-  }
-
-  .text-glitch::before,
-  .text-glitch::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-  .text-glitch::before {
-    animation: glitch-1 0.3s infinite linear alternate-reverse;
-    clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+  .group:hover .glitch-hover,
+  .glitch-hover:hover {
     color: hsl(var(--accent));
-  }
-
-  .text-glitch::after {
-    animation: glitch-2 0.3s infinite linear alternate-reverse;
-    clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
-    color: hsl(180 75% 55%);
-  }
-
-  .hover-shift {
-    transition: transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-
-  .hover-shift:hover {
-    transform: translate(var(--hover-shift), calc(var(--hover-shift) * -1));
-  }
-
-  .border-brutal {
-    border: 2px solid hsl(var(--foreground));
-  }
-
-  .shadow-brutal {
-    box-shadow: 4px 4px 0px hsl(var(--foreground));
-  }
-
-  .shadow-brutal-accent {
-    box-shadow: 4px 4px 0px hsl(var(--accent));
-  }
-
-  .scanlines {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .scanlines::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      hsl(var(--background) / 0.03) 2px,
-      hsl(var(--background) / 0.03) 4px
-    );
-    pointer-events: none;
+    text-shadow: 0.06em 0.05em 0 hsl(var(--teal));
   }
 }
 
@@ -169,24 +85,6 @@
   .animate-flicker {
     animation: flicker 0.15s infinite;
   }
-}
-
-@keyframes glitch-1 {
-  0% { transform: translate(0); }
-  20% { transform: translate(-2px, 2px); }
-  40% { transform: translate(-2px, -2px); }
-  60% { transform: translate(2px, 2px); }
-  80% { transform: translate(2px, -2px); }
-  100% { transform: translate(0); }
-}
-
-@keyframes glitch-2 {
-  0% { transform: translate(0); }
-  20% { transform: translate(2px, -2px); }
-  40% { transform: translate(2px, 2px); }
-  60% { transform: translate(-2px, -2px); }
-  80% { transform: translate(-2px, 2px); }
-  100% { transform: translate(0); }
 }
 
 @keyframes flicker {

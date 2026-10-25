@@ -21,9 +21,15 @@ export default {
       fontFamily: {
         display: ['Bebas Neue', 'sans-serif'],
         mono: ['Space Mono', 'monospace'],
-        nav: ['-apple-system', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+        nav: ['Helvetica Neue', 'Helvetica', 'Inter', 'Arial', 'sans-serif'],
+        sans: ['Helvetica Neue', 'Helvetica', 'Inter', 'Arial', 'sans-serif'],
       },
       colors: {
+        // Print palette from the PDF portfolio: paper, ink, and the red/teal
+        // misregistration pair from its "What I Built" headings.
+        paper: "hsl(var(--paper))",
+        ink: "hsl(var(--ink))",
+        teal: "hsl(var(--teal))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
