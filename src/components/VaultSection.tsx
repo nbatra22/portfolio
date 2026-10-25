@@ -17,18 +17,6 @@ const projects: WorkProject[] = [
     ],
   },
   {
-    title: "AI Visual Jockey",
-    date: "APRIL 2026",
-    category: "Generative AI x Live Visuals",
-    description: "Placeholder description — details coming soon.",
-    link: "https://visual-jockey.vercel.app",
-    layout: "staggered",
-    media: [
-      { type: "video", src: "/visualJockey1.mp4", hasSound: true },
-      { type: "video", src: "/visualJockey2.mp4", hasSound: true },
-    ],
-  },
-  {
     title: "ConneQ",
     date: "MARCH 2026",
     category: "Affective Computing x Haptics",
