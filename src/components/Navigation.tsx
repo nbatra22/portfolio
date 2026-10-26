@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { PAGE_STOPS } from "@/data/projects";
 
 const externalLinks = [
   { href: "https://www.linkedin.com/in/navya-batra/", label: "LINKEDIN" },
@@ -14,23 +15,20 @@ const externalLinks = [
   },
 ];
 
-const SCROLL_PAGE_PATHS = ["/", "/work", "/vault"];
-
 const Navigation = () => {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const breadcrumb = location.pathname.startsWith("/work")
-    ? "/WORK"
-    : location.pathname.startsWith("/vault")
-    ? "/VAULT"
-    : "";
+  // The scroll-spy in Index.tsx keeps the URL on whichever project is in
+  // view, so the breadcrumb is just that project's title.
+  const currentStop = PAGE_STOPS.find((s) => s.path === location.pathname);
+  const breadcrumb = currentStop?.label ? `/${currentStop.label}` : "";
 
-  // "/", "/work", and "/vault" are all the same scrollable page — if
-  // we're already on it, going "home" means scrolling to the top rather
-  // than a route change (which the scroll-spy would just override).
+  // Every project path is the same scrollable page — if we're already on
+  // it, going "home" means scrolling to the top rather than a route change
+  // (which the scroll-spy would just override).
   const handleWordmarkClick = (e: React.MouseEvent) => {
     setMobileMenuOpen(false);
-    if (SCROLL_PAGE_PATHS.includes(location.pathname)) {
+    if (currentStop) {
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -57,7 +55,7 @@ const Navigation = () => {
               {breadcrumb && (
                 <motion.span
                   key={breadcrumb}
-                  className="text-sm uppercase tracking-[0.02em] md:text-base"
+                  className="text-sm md:text-base"
                   initial={{ opacity: 0, y: -6 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 6 }}

@@ -39,20 +39,18 @@ const IndexSection = () => (
           Message from the author
         </h3>
         <p className="mt-3 max-w-xl text-base leading-snug">
-          A few questions I have gotten during portfolio reviews have been,
-          “Why is your cover page blank?” or “Is this first page not done?” The
-          wireframe design of my cover page is an intentional decision. I see
-          my career in design to forever be in the “wireframe” stage. I view
-          the creation of my portfolio and the exploration of what it means to
-          be a designer as forever a journey. In order to get where I am now,
-          it was an evolution and I imagine it to be that way as long as I
-          pursue this career.
+          I have been questioned about my design choice during portfolio
+          reviews a few times now. “Why is your cover page blank?” or “Is this
+          page not done?” The wireframe design of my cover page is an
+          intentional decision. I see my career to forever be in the
+          “wireframe” stage. The creation of my portfolio, and my exploration
+          of what it means to be a designer is forever a journey. In order to
+          be where I am now, it was an evolution and I imagine it to be that
+          way as long as I pursue this career.
         </p>
         <p className="mt-6 max-w-xl text-base leading-snug">
-          Refik Anadol, the exhibits of TeamLab, and Tina Taraghian largely
-          inspire my projects and style. I’ve drawn inspiration from each of
-          these designers’ use of brutalism, technical minimalism, and
-          cyber-glitch core.
+          Refik Anadol, the exhibits of TeamLab, and Tina Taraghian are few
+          designers that largely inspire my projects and style.
         </p>
       </div>
 

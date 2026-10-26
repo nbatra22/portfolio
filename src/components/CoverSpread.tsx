@@ -1,11 +1,6 @@
 import { motion } from "framer-motion";
 import { WireframeX } from "@/components/WorkProjectRow";
-import {
-  projectNumber,
-  projectSlug,
-  vaultProjects,
-  workProjects,
-} from "@/data/projects";
+import { projectNumber, projectSlug, projects } from "@/data/projects";
 
 const scrollTo = (id: string) => (e: React.MouseEvent) => {
   e.preventDefault();
@@ -17,11 +12,6 @@ const scrollTo = (id: string) => (e: React.MouseEvent) => {
 // on the right. The empty box is the point — the portfolio stays a
 // wireframe, always in progress (see the author's note in the Index).
 const CoverSpread = () => {
-  const contents = [
-    ...workProjects.map((p) => ({ ...p, section: "Work" })),
-    ...vaultProjects.map((p) => ({ ...p, section: "Vault" })),
-  ];
-
   return (
     <section
       id="home"
@@ -68,7 +58,7 @@ const CoverSpread = () => {
         </motion.p>
 
         <nav aria-label="Table of contents" className="flex flex-col">
-          {contents.map((p) => (
+          {projects.map((p) => (
             <a
               key={p.title}
               href={`#${projectSlug(p.title)}`}
@@ -80,7 +70,7 @@ const CoverSpread = () => {
                   {p.title}
                 </span>
                 <span className="shrink-0 text-xs md:text-sm">
-                  {p.section} — p. {projectNumber(p.title)}
+                  p. {projectNumber(p.title)}
                 </span>
               </div>
               <p className="mt-1 max-w-lg text-xs leading-snug md:text-sm">
@@ -100,8 +90,8 @@ const CoverSpread = () => {
               <span className="shrink-0 text-xs md:text-sm">Notes &amp; concepts</span>
             </div>
             <p className="mt-1 max-w-lg text-xs leading-snug md:text-sm">
-              A note on the blank cover, my design inspirations, and the
-              concepts explored across these projects.
+              A designer's note, my design inspirations, and concepts explored
+              throughout these projects
             </p>
           </a>
         </nav>

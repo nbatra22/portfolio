@@ -1,6 +1,6 @@
 import type { WorkProject } from "@/components/WorkProjectRow";
 
-export const workProjects: WorkProject[] = [
+export const projects: WorkProject[] = [
   // Syntrillo Health — commented out for now.
   // {
   //   title: "Syntrillo Health",
@@ -25,9 +25,6 @@ export const workProjects: WorkProject[] = [
     link: "#",
     media: [{ type: "audio", src: "/voiceIQ/voiceIQFlow2.mp3" }],
   },
-];
-
-export const vaultProjects: WorkProject[] = [
   {
     title: "Second Skin",
     date: "NOV 2025 - PRESENT",
@@ -66,14 +63,69 @@ export const vaultProjects: WorkProject[] = [
   },
 ];
 
-// Anchor id for a project's spread — shared by the rows themselves and the
-// cover page's table of contents that links to them.
+// Anchor id (and URL path) for a project's spread — shared by the rows
+// themselves, the cover's table of contents, and the nav breadcrumb.
 export const projectSlug = (title: string) =>
   title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 
-// Page-style numbering ("01", "02"…) running continuously across Work then
-// Vault, the way the PDF numbers its spreads.
+// Page-style numbering ("01", "02"…), the way the PDF numbers its spreads.
 export const projectNumber = (title: string) => {
-  const i = [...workProjects, ...vaultProjects].findIndex((p) => p.title === title);
+  const i = projects.findIndex((p) => p.title === title);
   return String(i + 1).padStart(2, "0");
 };
+
+// Every scroll stop on the single-page site, in page order: the element id
+// it's tracked by, the URL it maps to, and the breadcrumb shown while it's
+// in view ("" for the cover, which shows just the wordmark).
+export const PAGE_STOPS = [
+  { id: "home", path: "/", label: "" },
+  ...projects.map((p) => ({
+    id: projectSlug(p.title),
+    path: `/${projectSlug(p.title)}`,
+    label: p.title,
+  })),
+  { id: "index", path: "/index", label: "Index" },
+];
+
+// DO NOT DELETE — archived from the old scrap-gallery Vault, kept for
+// possible future use elsewhere (e.g. a writing/blog section):
+// {
+//   title: "CO-EVOLUTION: TECHNOLOGY AND HUMANITY",
+//   medium: "WRITING",
+//   year: "2026",
+//   text: "I saw a video discussion on Meta's new Tribe v2 model. Got me thinking about technology and its trajectory. Wrote about it:)",
+//   link: "https://fr00tl00p.substack.com/p/co-evolution-technology-and-humanity",
+// },
+// {
+//   title: "STORYBOARDING",
+//   medium: "SKETCH",
+//   year: "2025",
+//   media: { type: "image", src: "/vaultItems/storyboard.png" },
+//   text: "My friend made a song that sparked a conversation about the type of scene he pictured along with the song. This is a storyboard and some rough animations of the idea.",
+// },
+// {
+//   title: "LOVE IN SILENCE",
+//   medium: "WRITING",
+//   year: "2025",
+//   text: "",
+// },
+// {
+//   title: "TREE CHAIR",
+//   medium: "GENERATIVE 3D RENDER",
+//   year: "2024",
+//   media: { type: "video", src: "/vaultItems/benchClip.mov" },
+//   text: "While on a walk, I saw a fallen tree stump that inspired an idea for a bark style bench. This is the original log, my vision, and an AI generated 3D render.",
+// },
+// {
+//   title: "AT THE TRAIN STATION",
+//   medium: "WRITING",
+//   year: "2023",
+//   text: "Setting: A curly haired girl sits on a wooden bench at Union Station, waiting for her train in an hour. The sound of the general public, hustle and bustle of an early Monday morning echos the large Union Station lobby.",
+//   link: "https://substack.com/@fr00tl00p/note/c-229415147?r=45xfi0&utm_source=notes-share-action&utm_medium=web",
+// },
+// {
+//   title: "MOTHER NATURE",
+//   medium: "POETRY",
+//   year: "2021",
+//   text: "",
+// },
